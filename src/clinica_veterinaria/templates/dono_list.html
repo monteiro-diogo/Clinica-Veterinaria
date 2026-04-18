@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Lista de Donos</h1>
+    
+    <p><a href="{% url 'dono_create' %}" class="btn">+ Novo Dono</a></p>
+
+    <ul>
+        {% for dono in donos %}
+            <li>
+                <strong><a href="{% url 'dono_detail' dono.pk %}">{{ dono.nome }}</a></strong> 
+                (Tel: {{ dono.telefone }})
+                
+                <a href="{% url 'dono_edit' dono.pk %}">✏️ Editar</a> | 
+                <a href="{% url 'dono_delete' dono.pk %}" style="color: red;">🗑️ Eliminar</a>
+            </li>
+        {% empty %}
+            <li>Não há donos registados na clínica.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

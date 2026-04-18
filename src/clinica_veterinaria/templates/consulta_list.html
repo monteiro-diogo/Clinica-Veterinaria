@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Agenda de Consultas</h1>
+    
+    <p><a href="{% url 'consulta_create' %}" class="btn">+ Agendar Nova Consulta</a></p>
+
+    <ul>
+        {% for consulta in consultas %}
+            <li>
+                <strong><a href="{% url 'consulta_detail' consulta.pk %}">{{ consulta.data_hora|date:"d/m/Y às H:i" }}</a></strong> <br>
+                Paciente: {{ consulta.animal.nome }} | Veterinário: {{ consulta.veterinario.nome }}
+            </li>
+            <br>
+        {% empty %}
+            <li>Não há consultas agendadas.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

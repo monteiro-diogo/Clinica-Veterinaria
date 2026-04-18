@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Lista de Animais</h1>
+    
+    <p><a href="{% url 'animal_create' %}" class="btn">+ Novo Animal</a></p>
+
+    <ul>
+        {% for animal in animais %}
+            <li>
+                <strong><a href="{% url 'animal_detail' animal.pk %}">{{ animal.nome }}</a></strong> 
+                ({{ animal.especie }}) - Dono: {{ animal.dono.nome }}
+                
+                <a href="{% url 'animal_edit' animal.pk %}">✏️ Editar</a> | 
+                <a href="{% url 'animal_delete' animal.pk %}" style="color: red;">🗑️ Eliminar</a>
+            </li>
+        {% empty %}
+            <li>Não há animais registados na clínica.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
