@@ -5,9 +5,9 @@ Esta pasta contém o coração da aplicação Django. Foi adotada uma estrutura 
 ## 🏗️ Arquitetura do Código
 - **`clinica_vet/`**: Pasta principal do projeto (Settings, URLs globais, WSGI).
 - **`core/`**: Aplicação principal que gere a lógica de negócio (Models, Views, Forms).
-- **`templates/`**: Ficheiros HTML organizados por funcionalidade.
+- **`templates/`**: Ficheiros HTML.
 - **`static/`**: Ficheiros CSS e JavaScript globais.
-- **`media/`**: Ficheiros imagem necessários.
+- **`media/`**: Ficheiros imagem.
 
 ## 🔑 Variáveis de Ambiente (.env)
 O projeto utiliza `python-dotenv` para segurança. Variáveis necessárias:
@@ -18,3 +18,6 @@ O projeto utiliza `python-dotenv` para segurança. Variáveis necessárias:
 ## 📋 Comandos Úteis
 - **Criar ficheiro db.sqlite3:** `python manage.py migrate`
 - **Correr servidor offline:** `python manage.py runserver `
+
+## ⚖️ Créditos
+* **ajlkn / HTML5 UP** - Template visual base "Verti" - Licença [CCA 3.0](http://html5up.net/license). (mais info em **templates/**)

@@ -65,5 +65,6 @@ Esta é uma tabela de ligação fundamental. Permite registar múltiplos serviç
 
 
 ## 📜 Ficheiros Incluídos
+- **`onda/`**: Ficheiros .json e .png com a ideia para a base de dados. 
 - `vet_clinic.sql`: Script original com a criação das tabelas e constrangimentos (Constraints) de validação (como os limites de NIF e Telefone, e chaves estrangeiras) em PostgreSQL.
 - `seed.sql`: Script com dados iniciais de teste.
