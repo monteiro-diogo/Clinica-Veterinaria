@@ -1,0 +1,232 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title> NOME | Clínica Veterinária</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+        
+        <style>
+            /* --- Personalização de Estilo e Cores --- */
+            body { background-color: #f4f8fb; color: #444; }
+            
+            /* Header e Logo */
+            #header-wrapper { background: #ffffff; border-bottom: 3px solid #2c5f85; padding: 1em 0; }
+            #logo h1 a { color: #2c5f85 !important; font-weight: 800; }
+            #logo span { color: #666; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8em; }
+
+            /* Menu Superior (Botões) */
+            #nav ul li a { 
+                background: #eef5f9; 
+                color: #2c5f85 !important; 
+                padding: 0.7em 1.2em !important; 
+                border-radius: 8px; 
+                margin-left: 0.5em;
+                transition: all 0.3s ease;
+                font-weight: 600;
+                border: 1px solid #d1e1eb;
+            }
+            #nav ul li a:hover { background: #3e82b8; color: #ffffff !important; border-color: #3e82b8; }
+            #nav ul li.current a { background: #2c5f85; color: #ffffff !important; border-color: #2c5f85; }
+
+            /* Banner */
+            #banner-wrapper { 
+                background: linear-gradient(135deg, #2c5f85 0%, #4a90e2 100%); 
+                padding: 4em 0; 
+                margin-bottom: 2em;
+            }
+            #banner { background: rgba(255, 255, 255, 0.1); border: none; backdrop-filter: blur(5px); }
+            #banner h2 { color: #ffffff; font-size: 2.5em; }
+            #banner p { color: #e0eef7; font-size: 1.2em; }
+
+            /* Botões de Ação */
+            .button.large { padding: 1em 2em; border-radius: 50px; text-transform: uppercase; font-weight: 700; }
+            .btn-agenda { background-color: #ffffff !important; color: #2c5f85 !important; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+            .btn-urgencia { background-color: #e74c3c !important; color: #ffffff !important; border-color: #e74c3c !important; }
+            .btn-urgencia:hover { background-color: #c0392b !important; }
+
+            /* Imagens e Boxes */
+            .image.featured { border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+            .box.feature { background: #ffffff; border-radius: 12px; transition: transform 0.3s ease; }
+            .box.feature:hover { transform: translateY(-5px); }
+            
+            /* Footer */
+            #footer-wrapper { background: #1a2b3c; color: #aec6d1; }
+            #footer h3 { color: #ffffff; border-bottom: 1px solid #2c5f85; padding-bottom: 0.5em; }
+            #footer a { color: #8cb6d2; }
+            #footer a:hover { color: #ffffff; }
+        </style>
+    </head>
+    <body class="is-preload homepage">
+        <div id="page-wrapper">
+
+            <div id="header-wrapper">
+                    <header id="header" class="container">
+
+                        <div id="logo">
+                                <h1><a href="/">NOME</a></h1>
+                                <span>Medicina Veterinária de Excelência</span>
+                            </div>
+
+                        <nav id="nav">
+                                <ul>
+                                    <li class="current"><a href="/">Início</a></li>
+                                    <li><a href="#">Serviços</a></li>
+                                    <li><a href="#">A Clínica</a></li>
+                                    <li><a href="#">Contactos</a></li>
+                                </ul>
+                            </nav>
+
+                    </header>
+                </div>
+
+            <div id="banner-wrapper">
+                    <div id="banner" class="box container">
+                        <div class="row">
+                            <div class="col-7 col-12-medium">
+                                <h2>Cuidamos de quem mais ama.</h2>
+                                <p>A nossa missão é proporcionar uma vida longa, saudável e feliz aos seus companheiros. Equipa especializada e tecnologia de ponta ao seu dispor.</p>
+                            </div>
+                            <div class="col-5 col-12-medium">
+                                <ul>
+                                    <li><a href="#" class="button large icon solid fa-calendar-check btn-agenda">Agendar Consulta</a></li>
+                                    <li><a href="#" class="button large icon solid fa-ambulance btn-urgencia">Urgência 24h</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div id="features-wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4 col-12-medium">
+                                <section class="box feature">
+                                    <a href="#" class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="Check-up" /></a>
+                                    <div class="inner">
+                                        <header>
+                                            <h2>Check-ups Gerais</h2>
+                                            <p>Prevenção é o melhor remédio</p>
+                                        </header>
+                                        <p>Consultas de rotina, planos de vacinação e acompanhamento nutricional para todas as idades.</p>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-4 col-12-medium">
+                                <section class="box feature">
+                                    <a href="#" class="image featured"><img src="{% static 'images/pic02.jpg' %}" alt="Cirurgia" /></a>
+                                    <div class="inner">
+                                        <header>
+                                            <h2>Cirurgia & Raio-X</h2>
+                                            <p>Diagnóstico preciso</p>
+                                        </header>
+                                        <p>Bloco operatório moderno e exames de imagem avançados para tratar qualquer problema com segurança.</p>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-4 col-12-medium">
+                                <section class="box feature">
+                                    <a href="#" class="image featured"><img src="{% static 'images/pic03.jpg' %}" alt="Estética" /></a>
+                                    <div class="inner">
+                                        <header>
+                                            <h2>Estética Animal</h2>
+                                            <p>Higiene e Bem-estar</p>
+                                        </header>
+                                        <p>Serviços de banhos, tosquias higiénicas e tratamento de pele num ambiente relaxante.</p>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div id="main-wrapper">
+                    <div class="container">
+                        <div class="row gtr-200">
+                            <div class="col-4 col-12-medium">
+                                <div id="sidebar">
+                                    <section class="widget thumbnails">
+                                        <h3>Os Nossos Pacientes</h3>
+                                        <div class="grid">
+                                            <div class="row gtr-50">
+                                                <div class="col-6"><a href="#" class="image fit"><img src="{% static 'images/pic04.jpg' %}" alt="" /></a></div>
+                                                <div class="col-6"><a href="#" class="image fit"><img src="{% static 'images/pic05.jpg' %}" alt="" /></a></div>
+                                                <div class="col-6"><a href="#" class="image fit"><img src="{% static 'images/pic06.jpg' %}" alt="" /></a></div>
+                                                <div class="col-6"><a href="#" class="image fit"><img src="{% static 'images/pic07.jpg' %}" alt="" /></a></div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="button icon fa-camera">Galeria Completa</a>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="col-8 col-12-medium imp-medium">
+                                <div id="content">
+                                    <section class="last">
+                                        <h2>Porquê escolher a Patas & Companhia?</h2>
+                                        <p>Na nossa clínica, o seu animal não é apenas um paciente, é parte da família. Compreendemos a ligação especial entre humanos e animais, e por isso focamo-nos num atendimento humanizado e sem stress.</p>
+                                        <p>Contamos com uma equipa de médicos veterinários em formação contínua, prontos para responder desde a consulta mais simples à patologia mais complexa.</p>
+                                        <a href="#" class="button icon solid fa-info-circle">Saber mais sobre nós</a>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div id="footer-wrapper">
+                    <footer id="footer" class="container">
+                        <div class="row">
+                            <div class="col-3 col-6-medium col-12-small">
+                                <section class="widget links">
+                                    <h3>Nossos Serviços</h3>
+                                    <ul class="style2">
+                                        <li><a href="#">Medicina Interna</a></li>
+                                        <li><a href="#">Estomatologia</a></li>
+                                        <li><a href="#">Análises Clínicas</a></li>
+                                        <li><a href="#">Microchips & Passaportes</a></li>
+                                    </ul>
+                                </section>
+                            </div>
+                            <div class="col-3 col-6-medium col-12-small">
+                                <section class="widget links">
+                                    <h3>Dicas Úteis</h3>
+                                    <ul class="style2">
+                                        <li><a href="#">Calendário de Vacinas</a></li>
+                                        <li><a href="#">Como viajar com o seu pet</a></li>
+                                        <li><a href="#">Alimentos proibidos</a></li>
+                                    </ul>
+                                </section>
+                            </div>
+                            <div class="col-6 col-12-medium">
+                                <section class="widget contact last">
+                                    <h3>Contactos e Localização</h3>
+                                    <p>Estamos abertos 24 horas por dia para emergências.</p>
+                                    <ul class="menu">
+                                        <li><strong>Telefone:</strong> (+351) 210 000 000</li>
+                                        <li><strong>Email:</strong> clinica@patascompanhia.pt</li>
+                                        <li><strong>Morada:</strong> Rua do Veterinário, nº 10, Lisboa</li>
+                                    </ul>
+                                </section>
+                            </div>
+                        </div>
+                        <div id="copyright">
+                            <ul class="menu">
+                                <li>&copy; Patas & Companhia. Todos os direitos reservados</li>
+                                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                            </ul>
+                        </div>
+                    </footer>
+                </div>
+
+        </div>
+
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+            <script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
+            <script src="{% static 'js/browser.min.js' %}"></script>
+            <script src="{% static 'js/breakpoints.min.js' %}"></script>
+            <script src="{% static 'js/util.js' %}"></script>
+            <script src="{% static 'js/main.js' %}"></script>
+
+    </body>
+</html>

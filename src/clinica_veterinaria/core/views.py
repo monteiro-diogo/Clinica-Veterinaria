@@ -5,7 +5,7 @@ from .forms import DonoForm, AnimalForm, ConsultaForm
 
 # Home
 class HomeView(TemplateView):
-    template_name = "home.html"
+    template_name = 'index.html'
 
 # --- DONOS ---
 class DonoListView(ListView):
