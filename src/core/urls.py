@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.urls import path
+from .views import login_view
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
@@ -22,4 +24,8 @@ urlpatterns = [
     path('consultas/', views.ConsultaListView.as_view(), name='consulta_list'),
     path('consultas/add/', views.ConsultaCreateView.as_view(), name='consulta_create'),
     path('consultas/<int:pk>/', views.ConsultaDetailView.as_view(), name='consulta_detail'),
+
+    # Login e Logout
+    path('login/', login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
 ]

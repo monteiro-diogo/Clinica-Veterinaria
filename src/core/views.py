@@ -2,6 +2,8 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from django.urls import reverse_lazy
 from .models import Dono, Animal, Veterinario, Consulta
 from .forms import DonoForm, AnimalForm, ConsultaForm
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
 
 # Home
 class HomeView(TemplateView):
@@ -88,3 +90,24 @@ class ConsultaDetailView(DetailView):
     model = Consulta
     template_name = "consulta_detail.html"
     context_object_name = "consulta"
+
+
+#---------login and logout-------- 
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user) 
+            return redirect('home')
+        else:
+            return render(request, 'login.html', {'error': 'Credenciais inválidas'})
+
+    return render(request, 'login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
