@@ -25,7 +25,8 @@ urlpatterns = [
     path('consultas/add/', views.ConsultaCreateView.as_view(), name='consulta_create'),
     path('consultas/<int:pk>/', views.ConsultaDetailView.as_view(), name='consulta_detail'),
 
-    # Login e Logout
+    # Login e Logout e registro
+    path('registo/', views.DonoCreateView.as_view(), name='registo'), # Mudei o name para 'registo'
     path('login/', login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
 ]

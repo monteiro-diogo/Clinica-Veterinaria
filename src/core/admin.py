@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Dono, Animal, Veterinario, Consulta, Servico
 
-# Register your models here.
+admin.site.register(Dono)
+admin.site.register(Animal)
+admin.site.register(Veterinario)
+admin.site.register(Consulta)
+admin.site.register(Servico)
