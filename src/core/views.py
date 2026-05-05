@@ -22,6 +22,34 @@ class HomeView(TemplateView):
         context['servicos'] = Servico.objects.all()[:3]
         context['vets'] = Veterinario.objects.all()
         return context
+    
+class DonoView(DetailView):
+    model = Dono
+    template_name = "perfil.html"
+    context_object_name = "dono"
+
+@login_required
+def dono_view(request):
+    try:
+        dono = Dono.objects.get(email=request.user.email)
+        animais = Animal.objects.filter(dono=dono)
+        
+        # O ERRO ESTAVA AQUI: Mudamos 'data' para 'data_hora'
+        consultas = Consulta.objects.filter(animal__in=animais).order_by('-data_hora')
+        
+    except Dono.DoesNotExist:
+        dono = None
+        animais = []
+        consultas = []
+
+    context = {
+        'dono': dono,
+        'animais': animais,
+        'consultas': consultas,
+    }
+    
+    return render(request, 'perfil.html', context)
+
 
 # ==========================================
 # 2. SISTEMA DE AUTENTICAÇÃO (LOGIN/LOGOUT)
@@ -72,7 +100,8 @@ class DonoDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["animais"] = self.object.animais.all()
         return context
-
+    
+    
 # Esta view serve para o Registo Público ou Adição manual pelo Admin
 class DonoCreateView(CreateView):
     model = Dono

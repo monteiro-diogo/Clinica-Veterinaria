@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>O Meu Perfil - Clínica Veterinária</title>
+    <link rel="stylesheet" href="{% static 'css/style_form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+    <!-- FontAwesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+    <!-- Barra Lateral / Menu de Perfil -->
+    <aside class="profile-sidebar">
+        <div class="profile-header">
+            <div class="avatar-circle">
+                <i class="fas fa-user"></i>
+            </div>
+            <h3>{{ dono.nome }}</h3>
+            <p>{{ dono.email }}</p>
+        </div>
+        
+        <nav class="profile-nav">
+            <a href="#dados" class="active"><i class="fas fa-id-card"></i> Dados Pessoais</a>
+            <a href="{% url 'animal_create' %}"><i class="fas fa-plus-circle"></i> Registar Animal</a>
+            <a href="{% url 'consulta_create' %}"><i class="fas fa-calendar-plus"></i> Marcar Consulta</a>
+            <a href="#definicoes"><i class="fas fa-cog"></i> Definições</a>
+            <hr>
+            <a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="profile-content">
+        
+        <!-- Secção 1: Meus Animais -->
+        <section class="content-card">
+            <div class="card-header">
+                <h2><i class="fas fa-paw"></i> Os Meus Animais</h2>
+                <a href="{% url 'animal_create' %}" class="btn-small">Adicionar</a>
+            </div>
+            <div class="animal-grid">
+                {% for animal in animais %}
+                <div class="animal-item">
+                    <img src="{% static 'images/dog-icon.png' %}" alt="Pet">
+                    <div class="animal-info">
+                        <strong>{{ animal.nome }}</strong>
+                        <span>{{ animal.especie }} ({{ animal.idade }} anos)</span>
+                    </div>
+                </div>
+                {% empty %}
+                <p>Ainda não tem animais registados.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Secção 2: Próximas Marcações -->
+        <section class="content-card">
+            <div class="card-header">
+                <h2><i class="fas fa-calendar-check"></i> Próximas Consultas</h2>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Animal</th>
+                        <th>Veterinário</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consulta in consultas %}
+                    <tr>
+                        <td>{{ consulta.data|date:"d/m/Y H:i" }}</td>
+                        <td>{{ consulta.animal.nome }}</td>
+                        <td>Dr. {{ consulta.veterinario.nome }}</td>
+                        <td><span class="status-badge">Confirmada</span></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">Não tem consultas agendadas.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+</div>
+
+</body>
+</html>
