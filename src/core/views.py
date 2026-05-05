@@ -5,7 +5,6 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User 
-from django.contrib.auth import login
 
 from .models import Dono, Animal, Veterinario, Consulta, Servico
 from .forms import DonoForm, AnimalForm, ConsultaForm
@@ -29,18 +28,27 @@ class HomeView(TemplateView):
 # ==========================================
 
 def login_view(request):
+    # Se o utilizador já está logado, manda-o para a home (evita login duplo)
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    error_message = None # Inicializamos a variável
+
     if request.method == 'POST':
         user_name = request.POST.get('username')
         pass_word = request.POST.get('password')
+        
         user = authenticate(request, username=user_name, password=pass_word)
         
         if user is not None:
             login(request, user)
             return redirect('home')
         else:
-            return render(request, 'login.html', {'error': 'Utilizador ou password incorretos'})
-            
-    return render(request, 'login.html')
+            # Definimos a mensagem aqui
+            error_message = 'Utilizador ou palavra-passe incorretos.'
+
+    # Passamos a variável de erro (que será None se for um GET ou preenchida se falhar o POST)
+    return render(request, 'login.html', {'error': error_message})
 
 def logout_view(request):
     logout(request)
@@ -73,21 +81,23 @@ class DonoCreateView(CreateView):
     success_url = reverse_lazy("home")
 
     def form_valid(self, form):
-        # 1. Guarda os dados do Dono primeiro
+        # 1. Guarda os dados do Dono primeiro (Cria o registo na tabela Dono)
         response = super().form_valid(form)
         dono = self.object
 
-        # 2. Cria um utilizador no sistema Django para este Dono
-        # Usaremos o email como username e o telefone como password temporária
-        # (Podes ajustar isto conforme preferires)
+        # 2. Pega na password que o utilizador escolheu no formulário
+        # O 'cleaned_data' garante que pegamos na password já validada pelo forms.py
+        password_escolhida = form.cleaned_data.get('password')
+
+        # 3. Cria um utilizador no sistema Django para este Dono
         if not User.objects.filter(username=dono.email).exists():
             user = User.objects.create_user(
                 username=dono.email, 
                 email=dono.email,
-                password=dono.telefone # Define a password como o telefone por defeito
+                password=password_escolhida # Agora usa a password real escolhida
             )
             
-            # 3. Efetua o login automático do novo utilizador
+            # 4. Efetua o login automático do novo utilizador
             login(self.request, user)
             
         return response
