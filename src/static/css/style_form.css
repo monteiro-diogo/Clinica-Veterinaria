@@ -1,4 +1,6 @@
-/* Configurações Gerais */
+/* =========================================
+   Configurações Gerais (Fundo e Layout)
+   ========================================= */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -9,9 +11,12 @@ body {
     justify-content: center;
 }
 
+/* =========================================
+   Caixa Principal de Login/Registo
+   ========================================= */
 .login-container {
     width: 100%;
-    max-width: 450px;
+    max-width: 400px; /* Um pouco mais estreito para login fica mais elegante */
     padding: 20px;
 }
 
@@ -23,19 +28,22 @@ body {
     text-align: center;
 }
 
-h2 {
+.login-box h2 {
     color: #2c3e50;
+    margin-top: 0;
     margin-bottom: 10px;
     font-weight: 600;
 }
 
-p {
+.login-box p {
     color: #7f8c8d;
     font-size: 0.9em;
     margin-bottom: 30px;
 }
 
-/* Estilização dos Inputs do Django */
+/* =========================================
+   Inputs e Formulário
+   ========================================= */
 .input-group {
     text-align: left;
     margin-bottom: 20px;
@@ -49,7 +57,6 @@ p {
     font-weight: bold;
 }
 
-/* Seleciona todos os inputs gerados pelo Django */
 .input-group input, 
 .input-group select, 
 .input-group textarea {
@@ -58,8 +65,8 @@ p {
     border: 1px solid #dcdde1;
     border-radius: 6px;
     font-size: 1em;
-    box-sizing: border-box; /* Garante que o padding não aumente o tamanho */
-    transition: border-color 0.3s ease;
+    box-sizing: border-box; /* Impede que o padding quebre a largura */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-group input:focus {
@@ -68,26 +75,34 @@ p {
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
 }
 
-/* Botão */
+/* =========================================
+   Botão Principal
+   ========================================= */
 .btn-submit {
     width: 100%;
     padding: 14px;
-    background-color: #27ae60;
+    background-color: #2c5f85; /* Ajustado para a cor principal da tua clínica */
     color: white;
     border: none;
     border-radius: 6px;
     font-size: 1.1em;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.1s ease;
     margin-top: 10px;
 }
 
 .btn-submit:hover {
-    background-color: #219150;
+    background-color: #1e425e;
 }
 
-/* Erros */
+.btn-submit:active {
+    transform: scale(0.98); /* Pequeno efeito de clique */
+}
+
+/* =========================================
+   Erros
+   ========================================= */
 .error-text {
     color: #e74c3c;
     font-size: 0.8em;
@@ -98,21 +113,37 @@ p {
 .error-general {
     background: #fdf2f2;
     color: #e74c3c;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 12px;
+    border-radius: 6px;
     margin-top: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    border: 1px solid #f5c6c6;
 }
 
+/* =========================================
+   Rodapé do Formulário (Links)
+   ========================================= */
 .footer-links {
     margin-top: 25px;
     font-size: 0.85em;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-links p {
+    margin: 0;
 }
 
 .footer-links a {
     color: #3498db;
     text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
+    color: #2980b9;
     text-decoration: underline;
 }
