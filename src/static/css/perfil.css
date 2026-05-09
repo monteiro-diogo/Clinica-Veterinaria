@@ -1,0 +1,105 @@
+/* Layout Principal */
+.dashboard-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 30px;
+    padding: 0 20px;
+    align-items: flex-start;
+}
+
+/* Sidebar */
+.profile-sidebar {
+    width: 300px;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    background: #2c5f85;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    margin: 0 auto 15px;
+}
+
+.profile-nav a {
+    display: block;
+    padding: 12px 15px;
+    color: #555;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-bottom: 5px;
+}
+
+.profile-nav a:hover, .profile-nav a.active {
+    background: #f0f7ff;
+    color: #2c5f85;
+    font-weight: bold;
+}
+
+.logout-link { color: #e74c3c !important; }
+
+/* Cards de Conteúdo */
+.profile-content { flex: 1; display: flex; flex-direction: column; gap: 25px; }
+
+.content-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Grelha de Animais */
+.animal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1max));
+    gap: 15px;
+}
+
+.animal-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #edf2f7;
+}
+
+.animal-item img { width: 50px; height: 50px; border-radius: 10px; }
+
+/* Tabelas */
+.data-table { width: 100%; border-collapse: collapse; text-align: left; }
+.data-table th { color: #7f8c8d; font-size: 0.9em; padding: 10px; }
+.data-table td { padding: 15px 10px; border-top: 1px solid #eee; }
+
+.status-badge {
+    background: #d4edda;
+    color: #155724;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+}

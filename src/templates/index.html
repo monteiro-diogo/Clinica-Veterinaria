@@ -70,13 +70,21 @@
                             </div>
 
                         <nav id="nav">
-                                <ul>
-                                    <li class="current"><a href="/">Início</a></li>
-                                    <li><a href="#">Serviços</a></li>
-                                    <li><a href="#">A Clínica</a></li>
-                                    <li><a href="#">Contactos</a></li>
-                                </ul>
-                            </nav>
+                            <ul>
+                                <li class="current"><a href="/">Início</a></li>
+                                <li><a href="#">Serviços</a></li>
+                                <li><a href="#">A Clínica</a></li>
+                                <li><a href="#">Contactos</a></li>
+
+                                {% if user.is_authenticated %}
+                                    <li><a href="{% url 'perfil' %}" style="background: #2c5f85; color: white !important;">O Meu Perfil</a></li>
+                                    <li><a href="{% url 'logout' %}" style="background: #e74c3c; color: white !important; border-color: #e74c3c;">Sair</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                    <li><a href="{% url 'registo' %}" style="background: #4a90e2; color: white !important; border-color: #4a90e2;">Criar Conta</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
 
                     </header>
                 </div>

@@ -22,4 +22,10 @@ urlpatterns = [
     path('consultas/', views.ConsultaListView.as_view(), name='consulta_list'),
     path('consultas/add/', views.ConsultaCreateView.as_view(), name='consulta_create'),
     path('consultas/<int:pk>/', views.ConsultaDetailView.as_view(), name='consulta_detail'),
+
+    # Login, Logout e Registo
+    path('registo/', views.DonoCreateView.as_view(), name='registo'),
+    path('login/', views.login_view, name='login'), # Ajustado para views.login_view
+    path('logout/', views.logout_view, name='logout'),
+    path('meu-perfil/', views.dono_view, name='perfil'),
 ]
