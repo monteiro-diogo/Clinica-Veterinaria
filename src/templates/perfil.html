@@ -37,10 +37,10 @@
         
         <!-- Secção 1: Meus Animais -->
         <section class="content-card">
-            <div class="card-header">
-                <h2><i class="fas fa-paw"></i> Os Meus Animais</h2>
-                <a href="{% url 'animal_create' %}" class="btn-small">Adicionar</a>
-            </div>
+        <div class="card-header">
+            <h2><i class="fas fa-paw"></i> Os Meus Animais</h2>
+            <a href="{% url 'animal_create' %}" class="btn-small">Adicionar Animal</a>
+        </div>
             <div class="animal-grid">
                 {% for animal in animais %}
                 <div class="animal-item">

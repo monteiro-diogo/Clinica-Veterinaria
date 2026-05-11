@@ -2,9 +2,12 @@ from django.db import models
 
 class Dono(models.Model):
     nome = models.CharField(max_length=100)
-    nif = models.CharField(max_length=9, blank=True, null=True)
-    telefone = models.CharField(max_length=9)
-    email = models.EmailField(max_length=255, blank=True, null=True)
+    # NIF pode ser opcional (nem toda a gente quer dar o NIF)
+    nif = models.CharField(max_length=9, blank=True, null=True) 
+    # Telefone é obrigatório para contactos de emergência
+    telefone = models.CharField(max_length=9) 
+    # Email TEM de ser obrigatório para o sistema de login funcionar
+    email = models.EmailField(max_length=255, unique=True) 
 
     def __str__(self):
         return self.nome

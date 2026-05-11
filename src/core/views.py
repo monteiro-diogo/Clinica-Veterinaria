@@ -161,7 +161,17 @@ class AnimalCreateView(CreateView):
     model = Animal
     form_class = AnimalForm
     template_name = "animal_form.html"
-    success_url = reverse_lazy("animal_list")
+    success_url = reverse_lazy("perfil")
+
+    def form_valid(self, form):
+        # 1. Buscar o Dono associado ao utilizador atual
+        dono_atual = Dono.objects.get(email=self.request.user.email)
+        
+        # 2. Associar o animal a esse dono sem guardar ainda na BD
+        form.instance.dono = dono_atual
+        
+        # 3. Guardar definitivamente
+        return super().form_valid(form)
 
 class AnimalUpdateView(UpdateView):
     model = Animal

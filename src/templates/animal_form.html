@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Registar Novo Animal</title>
+    <link rel="stylesheet" href="{% static 'css/style_form.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2><i class="fas fa-paw"></i> Registar Novo Amigo</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-submit">Registar Animal</button>
+            <a href="{% url 'perfil' %}" class="btn-cancel">Voltar</a>
+        </form>
+    </div>
+</body>
+</html>

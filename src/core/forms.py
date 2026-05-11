@@ -29,14 +29,16 @@ class DonoForm(forms.ModelForm):
             # Se forem diferentes, o Django mostra este erro no formulário
             self.add_error('confirm_password', "As palavras-passe não coincidem!")
 
-
-            
-        
         return cleaned_data
+    
+
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
         fields = ['nome', 'especie', 'raca', 'data_nascimento', 'dono']
+        widgets = {
+            'data_nascimento': forms.DateInput(attrs={'type': 'date'}),
+        }
 
 class VeterinarioForm(forms.ModelForm):
     class Meta:
