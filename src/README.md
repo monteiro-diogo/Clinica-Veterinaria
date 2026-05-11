@@ -17,7 +17,7 @@ O projeto utiliza `python-dotenv` para segurança. Variáveis necessárias:
 - `DB_HOST` e `DB_PORT`: localhost:port
 
 ## 📋 Comandos Úteis
-- **Criar ficheiro db.sqlite3:**  
+- **Criar ficheiro sql:**  
 `python manage.py migrate`
 - **Correr servidor offline:**  
 `python manage.py runserver`
