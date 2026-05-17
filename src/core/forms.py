@@ -38,6 +38,21 @@ class AnimalForm(forms.ModelForm):
         model = Animal
         fields = ['nome', 'especie', 'raca', 'data_nascimento', 'dono']
 
+        # Adicionamos estilização (classes CSS) e o tipo de input correto para a data
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ex: Bobby'}),
+            'especie': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ex: Cão, Gato'}),
+            'raca': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ex: Labrador, SRD'}),
+            'data_nascimento': forms.DateInput(attrs={'class': 'form-input', 'type': 'date'}),
+        }
+        
+        labels = {
+            'nome': 'Nome do Patudo',
+            'especie': 'Espécie',
+            'raca': 'Raça',
+            'data_nascimento': 'Data de Nascimento',
+        }
+
 class VeterinarioForm(forms.ModelForm):
     class Meta:
         model = Veterinario

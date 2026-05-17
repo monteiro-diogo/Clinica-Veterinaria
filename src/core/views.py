@@ -34,7 +34,6 @@ def dono_view(request):
         dono = Dono.objects.get(email=request.user.email)
         animais = Animal.objects.filter(dono=dono)
         
-        # O ERRO ESTAVA AQUI: Mudamos 'data' para 'data_hora'
         consultas = Consulta.objects.filter(animal__in=animais).order_by('-data_hora')
         
     except Dono.DoesNotExist:
@@ -161,7 +160,24 @@ class AnimalCreateView(CreateView):
     model = Animal
     form_class = AnimalForm
     template_name = "animal_form.html"
-    success_url = reverse_lazy("animal_list")
+    success_url = reverse_lazy("perfil")
+
+def form_valid(self, form):
+        try:
+            # 1. Procuramos o Dono na base de dados usando o email do utilizador logado
+            dono_atual = Dono.objects.get(email=self.request.user.email)
+            
+            # 2. Associamos o animal a este dono (na memória, sem guardar ainda)
+            form.instance.dono = dono_atual
+            
+            # 3. Executamos o salvamento padrão do Django
+            return super().form_valid(form)
+            
+        except Dono.DoesNotExist:
+            # Caso de segurança: se o utilizador logado não tiver um perfil Dono criado
+            form.add_error(None, "Erro: Não encontrámos um perfil de Dono associado a esta conta.")
+            return self.form_invalid(form)
+
 
 class AnimalUpdateView(UpdateView):
     model = Animal

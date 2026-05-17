@@ -39,7 +39,7 @@
         <section class="content-card">
             <div class="card-header">
                 <h2><i class="fas fa-paw"></i> Os Meus Animais</h2>
-                <a href="{% url 'animal_create' %}" class="btn-small">Adicionar</a>
+                <a href="{% url 'animal_create' %}" style="background: #2c5f85; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 14px;">+ Adicionar Animal</a>
             </div>
             <div class="animal-grid">
                 {% for animal in animais %}
