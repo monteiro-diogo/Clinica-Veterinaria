@@ -5,6 +5,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from .models import Dono, Animal, Veterinario, Consulta, Servico
 from .forms import DonoForm, AnimalForm, ConsultaForm
@@ -34,7 +36,6 @@ def dono_view(request):
         dono = Dono.objects.get(email=request.user.email)
         animais = Animal.objects.filter(dono=dono)
         
-        # O ERRO ESTAVA AQUI: Mudamos 'data' para 'data_hora'
         consultas = Consulta.objects.filter(animal__in=animais).order_by('-data_hora')
         
     except Dono.DoesNotExist:
@@ -152,22 +153,40 @@ class AnimalListView(ListView):
     context_object_name = "animais"
     queryset = Animal.objects.select_related("dono").all()
 
-class AnimalDetailView(DetailView):
+# Garante que tens a Consulta importada no topo do teu views.py:
+# from .models import Animal, Dono, Consulta
+class AnimalDetailView(LoginRequiredMixin, DetailView):
     model = Animal
     template_name = "animal_detail.html"
     context_object_name = "animal"
 
-class AnimalCreateView(CreateView):
-    model = Animal
-    form_class = AnimalForm
-    template_name = "animal_form.html"
-    success_url = reverse_lazy("animal_list")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Puxa todas as consultas deste animal específico, ordenadas pela data mais recente
+        context['consultas'] = Consulta.objects.filter(animal=self.object).order_by('-data_hora')
+        return context
 
-class AnimalUpdateView(UpdateView):
+class AnimalCreateView(LoginRequiredMixin, CreateView):
     model = Animal
     form_class = AnimalForm
-    template_name = "animal_form.html"
-    success_url = reverse_lazy("animal_list")
+    template_name = 'animal_form.html'
+    success_url = reverse_lazy('perfil')
+
+    def form_valid(self, form):
+        dono_atual = Dono.objects.get(email=self.request.user.email)
+        form.instance.dono = dono_atual  # Associa automaticamente
+        return super().form_valid(form)
+
+
+# 3. EDITAR ANIMAL
+class AnimalUpdateView(LoginRequiredMixin, UpdateView):
+    model = Animal
+    form_class = AnimalForm
+    template_name = 'animal_form.html'
+    
+    def get_success_url(self):
+        # Quando acaba de editar, volta para o perfil do próprio animal
+        return reverse_lazy('animal_perfil', kwargs={'pk': self.object.pk})
 
 class AnimalDeleteView(DeleteView):
     model = Animal
@@ -184,12 +203,21 @@ class ConsultaListView(ListView):
     context_object_name = "consultas"
     queryset = Consulta.objects.select_related("veterinario", "animal").all()
 
-class ConsultaCreateView(CreateView):
+# 4. MARCAR CONSULTA (Animal Automático via URL)
+class ConsultaCreateView(LoginRequiredMixin, CreateView):
     model = Consulta
     form_class = ConsultaForm
-    template_name = "consulta_form.html"
-    success_url = reverse_lazy("consulta_list")
+    template_name = 'consulta_form.html'
 
+    def form_valid(self, form):
+        # Captura o id do animal diretamente a partir da URL e associa-o à consulta
+        form.instance.animal_id = self.kwargs.get('pk')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Quando a consulta é marcada, volta para o perfil deste mesmo animal
+        return reverse_lazy('animal_perfil', kwargs={'pk': self.kwargs.get('pk')})
+    
 class ConsultaDetailView(DetailView):
     model = Consulta
     template_name = "consulta_detail.html"

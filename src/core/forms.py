@@ -33,24 +33,43 @@ class DonoForm(forms.ModelForm):
             
         
         return cleaned_data
+    
+#Falta dono
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ['nome', 'especie', 'raca', 'data_nascimento', 'dono']
+        fields = ['nome', 'especie', 'raca', 'data_nascimento']
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-input'}),
+            'especie': forms.TextInput(attrs={'class': 'form-input'}),
+            'raca': forms.TextInput(attrs={'class': 'form-input'}),
+            'data_nascimento': forms.DateInput(attrs={'class': 'form-input', 'type': 'date'}),
+        }
+        
+        labels = {
+            'nome': 'Nome do Patudo',
+            'especie': 'Espécie',
+            'raca': 'Raça',
+            'data_nascimento': 'Data de Nascimento',
+        }
 
 class VeterinarioForm(forms.ModelForm):
     class Meta:
         model = Veterinario
         fields = ['nome', 'celula_profissional', 'especialidade', 'telefone']
 
+#falta animal 
 class ConsultaForm(forms.ModelForm):
     class Meta:
         model = Consulta
-        fields = ['data_hora', 'motivo', 'observacoes', 'veterinario', 'animal']
+        # O campo 'animal' fica de fora porque será automático
+        fields = ['data_hora', 'motivo', 'observacoes', 'veterinario']
         widgets = {
-            'data_hora': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'data_hora': forms.DateTimeInput(attrs={'class': 'form-input', 'type': 'datetime-local'}),
+            'motivo': forms.TextInput(attrs={'class': 'form-input'}),
+            'observacoes': forms.Textarea(attrs={'class': 'form-input', 'rows': 3}),
+            'veterinario': forms.Select(attrs={'class': 'form-input'}),
         }
-
 class MedicamentoForm(forms.ModelForm):
     class Meta:
         model = Medicamento

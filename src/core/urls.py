@@ -12,15 +12,14 @@ urlpatterns = [
     path('donos/<int:pk>/delete/', views.DonoDeleteView.as_view(), name='dono_delete'),
     
     # Animais
-    path('animais/', views.AnimalListView.as_view(), name='animal_list'),
     path('animais/add/', views.AnimalCreateView.as_view(), name='animal_create'),
-    path('animais/<int:pk>/', views.AnimalDetailView.as_view(), name='animal_detail'),
-    path('animais/<int:pk>/edit/', views.AnimalUpdateView.as_view(), name='animal_edit'),
+    path('animais/<int:pk>/', views.AnimalDetailView.as_view(), name='animal_perfil'),
+    path('animais/<int:pk>/editar/', views.AnimalUpdateView.as_view(), name='animal_update'),
     path('animais/<int:pk>/delete/', views.AnimalDeleteView.as_view(), name='animal_delete'),
 
     # Consultas
     path('consultas/', views.ConsultaListView.as_view(), name='consulta_list'),
-    path('consultas/add/', views.ConsultaCreateView.as_view(), name='consulta_create'),
+    path('animais/<int:pk>/marcar-consulta/', views.ConsultaCreateView.as_view(), name='marcar_consulta'),
     path('consultas/<int:pk>/', views.ConsultaDetailView.as_view(), name='consulta_detail'),
 
     # Login, Logout e Registo
