@@ -9,5 +9,6 @@ Este projeto é um sistema de gestão para uma clínica veterinária, desenvolvi
 - **Frontend:** HTML5, CSS3 (Templates Django)
 
 ## 📂 Estrutura do Repositório
-- `/src`: Código fonte do projeto Django.
 - `/database`: Scripts SQL originais e documentação do modelo de dados.
+- `/docs`: Documentos de apoio e relatório do projeto.
+- `/src`: Código fonte do projeto Django.
