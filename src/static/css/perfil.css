@@ -91,6 +91,17 @@
 
 .animal-item img { width: 50px; height: 50px; border-radius: 10px; }
 
+.animal-profile-link {
+    text-decoration: none;
+    color: #2c5f85; /* Usa a cor principal do teu site */
+    transition: color 0.2s ease;
+}
+
+.animal-profile-link:hover {
+    color: #1e4563; /* Fica ligeiramente mais escuro quando passas com o rato */
+    text-decoration: underline; /* Opcional: sublinha apenas no hover */
+}
+
 /* Tabelas */
 .data-table { width: 100%; border-collapse: collapse; text-align: left; }
 .data-table th { color: #7f8c8d; font-size: 0.9em; padding: 10px; }

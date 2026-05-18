@@ -22,39 +22,39 @@
             <p>{{ dono.email }}</p>
         </div>
         
-        <nav class="profile-nav">
-            <a href="#dados" class="active"><i class="fas fa-id-card"></i> Dados Pessoais</a>
-            <a href="{% url 'animal_create' %}"><i class="fas fa-plus-circle"></i> Registar Animal</a>
-            <a href="{% url 'consulta_create' %}"><i class="fas fa-calendar-plus"></i> Marcar Consulta</a>
-            <a href="#definicoes"><i class="fas fa-cog"></i> Definições</a>
-            <hr>
-            <a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
-        </nav>
+    <nav class="profile-nav">
+        <a href="#dados" class="active"><i class="fas fa-id-card"></i> Dados Pessoais</a>
+        <a href="{% url 'animal_create' %}"><i class="fas fa-plus-circle"></i> Registar Animal</a>
+        <a href="#definicoes"><i class="fas fa-cog"></i> Definições</a>
+        <hr>
+        <a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </nav>
     </aside>
 
     <!-- Conteúdo Principal -->
-    <main class="profile-content">
-        
-        <!-- Secção 1: Meus Animais -->
-        <section class="content-card">
-            <div class="card-header">
-                <h2><i class="fas fa-paw"></i> Os Meus Animais</h2>
-                <a href="{% url 'animal_create' %}" style="background: #2c5f85; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 14px;">+ Adicionar Animal</a>
-            </div>
-            <div class="animal-grid">
-                {% for animal in animais %}
-                <div class="animal-item">
-                    <img src="{% static 'images/dog-icon.png' %}" alt="Pet">
-                    <div class="animal-info">
+<main class="profile-content">
+    
+    <section class="content-card">
+        <div class="card-header">
+            <h2><i class="fas fa-paw"></i> Os Meus Animais</h2>
+            <a href="{% url 'animal_create' %}" style="background: #2c5f85; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 14px;">+ Adicionar Animal</a>
+        </div>
+        <div class="animal-grid">
+            {% for animal in animais %}
+            <div class="animal-item">
+                <img src="{% static 'images/dog-icon.png' %}" alt="Pet">
+                <div class="animal-info">
+                    <a href="{% url 'animal_perfil' animal.pk %}" class="animal-profile-link">
                         <strong>{{ animal.nome }}</strong>
-                        <span>{{ animal.especie }} ({{ animal.idade }} anos)</span>
-                    </div>
+                    </a>
+                    <span>{{ animal.especie }} ({{ animal.idade }} anos)</span>
                 </div>
-                {% empty %}
-                <p>Ainda não tem animais registados.</p>
-                {% endfor %}
             </div>
-        </section>
+            {% empty %}
+            <p>Ainda não tem animais registados.</p>
+            {% endfor %}
+        </div>
+    </section>
 
         <!-- Secção 2: Próximas Marcações -->
         <section class="content-card">

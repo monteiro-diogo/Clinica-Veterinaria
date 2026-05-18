@@ -33,16 +33,16 @@ class DonoForm(forms.ModelForm):
             
         
         return cleaned_data
+    
+#Falta dono
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ['nome', 'especie', 'raca', 'data_nascimento', 'dono']
-
-        # Adicionamos estilização (classes CSS) e o tipo de input correto para a data
+        fields = ['nome', 'especie', 'raca', 'data_nascimento']
         widgets = {
-            'nome': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ex: Bobby'}),
-            'especie': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ex: Cão, Gato'}),
-            'raca': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ex: Labrador, SRD'}),
+            'nome': forms.TextInput(attrs={'class': 'form-input'}),
+            'especie': forms.TextInput(attrs={'class': 'form-input'}),
+            'raca': forms.TextInput(attrs={'class': 'form-input'}),
             'data_nascimento': forms.DateInput(attrs={'class': 'form-input', 'type': 'date'}),
         }
         
@@ -58,14 +58,18 @@ class VeterinarioForm(forms.ModelForm):
         model = Veterinario
         fields = ['nome', 'celula_profissional', 'especialidade', 'telefone']
 
+#falta animal 
 class ConsultaForm(forms.ModelForm):
     class Meta:
         model = Consulta
-        fields = ['data_hora', 'motivo', 'observacoes', 'veterinario', 'animal']
+        # O campo 'animal' fica de fora porque será automático
+        fields = ['data_hora', 'motivo', 'observacoes', 'veterinario']
         widgets = {
-            'data_hora': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'data_hora': forms.DateTimeInput(attrs={'class': 'form-input', 'type': 'datetime-local'}),
+            'motivo': forms.TextInput(attrs={'class': 'form-input'}),
+            'observacoes': forms.Textarea(attrs={'class': 'form-input', 'rows': 3}),
+            'veterinario': forms.Select(attrs={'class': 'form-input'}),
         }
-
 class MedicamentoForm(forms.ModelForm):
     class Meta:
         model = Medicamento
