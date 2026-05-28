@@ -16,6 +16,7 @@ urlpatterns = [
     path('animais/<int:pk>/', views.AnimalDetailView.as_view(), name='animal_perfil'),
     path('animais/<int:pk>/editar/', views.AnimalUpdateView.as_view(), name='animal_update'),
     path('animais/<int:pk>/delete/', views.AnimalDeleteView.as_view(), name='animal_delete'),
+    
 
     # Consultas
     path('consultas/', views.ConsultaListView.as_view(), name='consulta_list'),
