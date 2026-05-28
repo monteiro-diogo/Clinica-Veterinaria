@@ -309,7 +309,7 @@
                     <span>Medicina Veterinária</span>
                 </div>
             </a>
-            <a href="{% url 'perfil' %}" class="topbar-back">← Voltar ao Perfil</a>
+            <a href="{% url 'core:perfil' %}" class="topbar-back">← Voltar ao Perfil</a>
         </div>
     </div>
 
@@ -338,8 +338,8 @@
                 </div>
             </div>
             <div class="animal-hero-actions">
-                <a href="{% url 'animal_update' animal.pk %}" class="btn btn-edit">✏️ Editar Dados</a>
-                <a href="{% url 'marcar_consulta' animal.pk %}" class="btn btn-consult">📅 Marcar Consulta</a>
+                <a href="{% url 'core:animal_update' animal.pk %}" class="btn btn-edit">✏️ Editar Dados</a>
+                <a href="{% url 'core:marcar_consulta' animal.pk %}" class="btn btn-consult">📅 Marcar Consulta</a>
             </div>
         </div>
 
@@ -409,7 +409,7 @@
         </div>
 
         <!-- Botão voltar -->
-        <a href="{% url 'perfil' %}" class="btn-back">← Voltar ao Meu Perfil</a>
+        <a href="{% url 'core:perfil' %}" class="btn-back">← Voltar ao Meu Perfil</a>
 
     </div>
 

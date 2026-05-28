@@ -269,7 +269,7 @@
         }
         .card-header h2 i { color: var(--azul-claro); font-size: 0.9rem; }
 
-        /* Botão "Adicionar" no card-header — mantém o href original, só estilos */
+        /* Botão "Adicionar" no card-header */
         .card-header a[href] {
             display: inline-flex; align-items: center; gap: 6px;
             background: linear-gradient(135deg, var(--azul-profundo), var(--azul-medio));
@@ -416,23 +416,23 @@
 <body>
 
     <!-- ══ TOPBAR ══ -->
-    <div class="topbar">
-        <div class="topbar-inner">
-            <a href="{% url 'home' %}" class="topbar-logo">
-                <div class="logo-paw">🐾</div>
-                <div class="topbar-logo-text">
-                    <h1>Patudos</h1>
-                    <span>Medicina Veterinária</span>
+<div class="topbar">
+    <div class="topbar-inner">
+        <a href="{% url 'core:home' %}" class="topbar-logo">
+            <div class="logo-paw">🐾</div>
+            <div class="topbar-logo-text">
+                <h1>Patudos</h1>
+                <span>Medicina Veterinária</span>
                 </div>
+        </a>
+        <div class="topbar-right">
+            <span class="topbar-greeting">Olá, <strong>{{ dono.nome }}</strong></span>
+            <a href="{% url 'core:home' %}" class="topbar-btn topbar-btn-home">
+                <i class="fas fa-home"></i> Início
             </a>
-            <div class="topbar-right">
-                <span class="topbar-greeting">Olá, <strong>{{ dono.nome }}</strong></span>
-                <a href="{% url 'home' %}" class="topbar-btn topbar-btn-home">
-                    <i class="fas fa-home"></i> Início
-                </a>
-            </div>
         </div>
     </div>
+</div>
 
     <!-- ══ DASHBOARD ══ -->
     <div class="dashboard-container">
@@ -449,10 +449,10 @@
 
             <nav class="profile-nav">
                 <a href="#dados" class="active"><i class="fas fa-id-card"></i> Dados Pessoais</a>
-                <a href="{% url 'animal_create' %}"><i class="fas fa-plus-circle"></i> Registar Animal</a>
+                <a href="{% url 'core:animal_create' %}"><i class="fas fa-plus-circle"></i> Registar Animal</a>
                 <a href="#definicoes"><i class="fas fa-cog"></i> Definições</a>
                 <hr>
-                <a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                <a href="{% url 'core:logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
             </nav>
         </aside>
 
@@ -463,14 +463,20 @@
             <section class="content-card">
                 <div class="card-header">
                     <h2><i class="fas fa-paw"></i> Os Meus Animais</h2>
-                    <a href="{% url 'animal_create' %}">+ Adicionar Animal</a>
+                    <a href="{% url 'core:animal_create' %}">+ Adicionar Animal</a>
                 </div>
                 <div class="animal-grid">
                     {% for animal in animais %}
                     <div class="animal-item">
-                        <img src="{% static 'images/dog-icon.png' %}" alt="Pet">
+                        <!-- VALIDAÇÃO DA FOTO ADICIONADA AQUI -->
+                        {% if animal.foto %}
+                            <img src="{{ animal.foto.url }}" alt="Foto de {{ animal.nome }}">
+                        {% else %}
+                            <img src="{% static 'images/dog-icon.png' %}" alt="Ícone Padrão">
+                        {% endif %}
+                        
                         <div class="animal-info">
-                            <a href="{% url 'animal_perfil' animal.pk %}" class="animal-profile-link">
+                            <a href="{% url 'core:animal_perfil' animal.pk %}" class="animal-profile-link">
                                 <strong>{{ animal.nome }}</strong>
                             </a>
                             <span>{{ animal.especie }} ({{ animal.idade }} anos)</span>

@@ -134,27 +134,50 @@
             color: var(--texto-escuro); margin-bottom: 6px; letter-spacing: 0.02em;
         }
         .form-group input,
-        .form-group select,
-        .form-group textarea,
-        .form-input {
-            width: 100%; padding: 11px 15px;
-            border: 1.5px solid rgba(74,144,196,0.25); border-radius: 12px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
-            color: var(--texto-escuro); background: var(--fundo);
-            transition: all 0.25s ease; outline: none;
-        }
+            .form-group select,
+            .form-group textarea,
+            .form-input {
+                width: 100%; padding: 11px 15px;
+                border: 1.5px solid rgba(74,144,196,0.25); border-radius: 12px;
+                font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+                color: var(--texto-escuro); background: var(--fundo);
+                transition: all 0.25s ease; outline: none;
+            }
         .form-group input::placeholder,
         .form-group textarea::placeholder { color: var(--texto-claro); }
         .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus,
-        .form-input:focus {
-            border-color: var(--azul-claro); background: var(--branco);
-            box-shadow: 0 0 0 4px rgba(74,144,196,0.12);
-        }
+            .form-group select:focus,
+            .form-group textarea:focus,
+            .form-input:focus {
+                border-color: var(--azul-claro); background: var(--branco);
+                box-shadow: 0 0 0 4px rgba(74,144,196,0.12);
+            }
         .field-error {
             display: block; font-size: 0.79rem;
             color: var(--urgencia); margin-top: 4px; font-weight: 500;
+        }
+
+        /* ── BLOCO RECENTE: ESTILO DO CONTAINER DA FOTO ── */
+        .photo-preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--fundo);
+            border: 2px dashed rgba(74,144,196,0.3);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .photo-preview-container img {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 3px solid var(--branco);
         }
 
         /* Botões */
@@ -224,7 +247,7 @@
             <h2>Registar Novo Animal</h2>
             <p>Preencha os dados do seu companheiro</p>
 
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 {% if form.non_field_errors %}
@@ -232,23 +255,59 @@
                 {% endif %}
 
                 {% for field in form %}
-                    <div class="form-group">
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}
-                            <span class="field-error">{{ field.errors }}</span>
-                        {% endif %}
-                    </div>
+                    {% if field.name == 'foto' %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            
+                            <div class="photo-preview-container">
+                                {% if form.instance.foto %}
+                                    <img id="animal-photo-preview" src="{{ form.instance.foto.url }}" alt="Foto do animal">
+                                {% else %}
+                                    <img id="animal-photo-preview" src="{% static 'images/dog-icon.png' %}" alt="Sem foto">
+                                {% endif %}
+                                
+                                {{ field }}
+                            </div>
+
+                            {% if field.errors %}
+                                <span class="field-error">{{ field.errors }}</span>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <span class="field-error">{{ field.errors }}</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 {% endfor %}
 
                 <div class="btn-container">
                     <button type="submit" class="btn btn-submit">Gravar</button>
-                    <a href="{% url 'perfil' %}" class="btn btn-cancel">Cancelar</a>
+                    <a href="{% url 'core:perfil' %}" class="btn btn-cancel">Cancelar</a>
                 </div>
             </form>
         </div>
 
     </div>
 
+    <script>
+        const fileInput = document.querySelector('input[type="file"]');
+        if (fileInput) {
+            fileInput.addEventListener('change', function(e) {
+                const preview = document.getElementById('animal-photo-preview');
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        preview.src = event.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    </script>
 </body>
 </html>

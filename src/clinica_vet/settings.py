@@ -123,10 +123,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# 1. Mantém os teus estáticos intocáveis
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+
+# 2. MUDANÇA ESSENCIAL: O URL web precisa de ser diferente para enganar o validador
+MEDIA_URL = '/fotos_animais/'
+
+# 3. O teu objetivo físico mantém-se! O ficheiro vai continuar a ser guardado onde queres
+MEDIA_ROOT = 'D:\\Study\\BD\\BD-Projeto\\src\\static\\media\\user_animal'
