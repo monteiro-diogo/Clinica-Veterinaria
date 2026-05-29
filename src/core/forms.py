@@ -38,7 +38,7 @@ class DonoForm(forms.ModelForm):
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ['nome', 'especie', 'raca', 'data_nascimento']
+        fields = ['nome', 'especie', 'raca', 'data_nascimento', 'foto']
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'form-input'}),
             'especie': forms.TextInput(attrs={'class': 'form-input'}),

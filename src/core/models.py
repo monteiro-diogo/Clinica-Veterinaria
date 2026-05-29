@@ -22,6 +22,7 @@ class Animal(models.Model):
     raca = models.CharField(max_length=50, blank=True, null=True)
     data_nascimento = models.DateField(blank=True, null=True)
     dono = models.ForeignKey(Dono, models.DO_NOTHING)
+    foto = models.ImageField(upload_to='', blank=True, null=True)
 
     class Meta:
         managed = False

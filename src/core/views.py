@@ -108,7 +108,7 @@ class DonoCreateView(CreateView):
     model = Dono
     form_class = DonoForm
     template_name = "registro.html" # O ficheiro bonito com CSS que criámos
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("core:home")
 
     def form_valid(self, form):
         # 1. Guarda os dados do Dono primeiro (Cria o registo na tabela Dono)
@@ -136,12 +136,12 @@ class DonoUpdateView(UpdateView):
     model = Dono
     form_class = DonoForm
     template_name = "dono_form.html"
-    success_url = reverse_lazy("dono_list")
+    success_url = reverse_lazy("core:dono_list")
 
 class DonoDeleteView(DeleteView):
     model = Dono
     template_name = "confirm_delete.html"
-    success_url = reverse_lazy("dono_list")
+    success_url = reverse_lazy("core:dono_list")
 
 # ==========================================
 # 4. GESTÃO DE ANIMAIS
@@ -170,7 +170,7 @@ class AnimalCreateView(LoginRequiredMixin, CreateView):
     model = Animal
     form_class = AnimalForm
     template_name = 'animal_form.html'
-    success_url = reverse_lazy('perfil')
+    success_url = reverse_lazy('core:perfil')
 
     def form_valid(self, form):
         dono_atual = Dono.objects.get(email=self.request.user.email)
@@ -186,12 +186,12 @@ class AnimalUpdateView(LoginRequiredMixin, UpdateView):
     
     def get_success_url(self):
         # Quando acaba de editar, volta para o perfil do próprio animal
-        return reverse_lazy('animal_perfil', kwargs={'pk': self.object.pk})
+        return reverse_lazy('core:animal_perfil', kwargs={'pk': self.object.pk})
 
 class AnimalDeleteView(DeleteView):
     model = Animal
     template_name = "confirm_delete.html"
-    success_url = reverse_lazy("animal_list")
+    success_url = reverse_lazy("core:animal_list")
 
 # ==========================================
 # 5. GESTÃO DE CONSULTAS
@@ -216,7 +216,7 @@ class ConsultaCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         # Quando a consulta é marcada, volta para o perfil deste mesmo animal
-        return reverse_lazy('animal_perfil', kwargs={'pk': self.kwargs.get('pk')})
+        return reverse_lazy('core:animal_perfil', kwargs={'pk': self.kwargs.get('pk')})
     
 class ConsultaDetailView(DetailView):
     model = Consulta
