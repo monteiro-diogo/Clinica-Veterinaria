@@ -13,6 +13,7 @@ CREATE TABLE animal (
 	especie	 VARCHAR(50) NOT NULL,
 	raca		 VARCHAR(50),
 	data_nascimento DATE,
+	foto		VARCHAR(100),
 	dono_id	 BIGINT NOT NULL,
 	PRIMARY KEY(id)
 );

@@ -5,47 +5,47 @@ INSERT INTO dono (nome, nif, telefone, email) VALUES
 ('Miguel Santos', '255666777', '933444555', 'miguel.santos@email.com'),
 ('Carla Mendes', '244111222', '911222333', 'carla.m@hotmail.com'),
 ('Tiago Oliveira', '211999888', '966777888', 'tiago.oliveira@empresa.pt'),
-('SÛnia Pereira', '233444555', '922111333', 'sonia.p@sapo.pt'),
+('S√≥nia Pereira', '233444555', '922111333', 'sonia.p@sapo.pt'),
 ('Bruno Fernandes', '288777666', '933999111', 'bruno.fernandes@email.com'),
 ('Diana Martins', '222333444', '911555777', NULL),
-('Jo„o Teixeira', '277888999', '966222444', 'joao.teixeira@email.com'),
+('Jo√£o Teixeira', '277888999', '966222444', 'joao.teixeira@email.com'),
 ('Rita Carvalho', '266555444', '933111222', 'rita_carvalho89@gmail.com');
 
--- 2. Inserir Animais (15 animais - alguns donos tÍm mais de um)
+-- 2. Inserir Animais (15 animais - alguns donos tem mais de um)
 INSERT INTO animal (nome, especie, raca, data_nascimento, dono_id) VALUES
-('Bobby', 'C„o', 'Rafeiro', '2018-05-10', 1),          
-('Luna', 'Gato', 'SiamÍs', '2020-08-22', 2),          
-('Rex', 'C„o', 'Pastor Alem„o', '2019-11-05', 2),     
+('Bobby', 'C√£o', 'Rafeiro', '2018-05-10', 1),          
+('Luna', 'Gato', 'Siam√™s', '2020-08-22', 2),          
+('Rex', 'C√£o', 'Pastor Alem√£o', '2019-11-05', 2),     
 ('Mia', 'Gato', 'Persa', '2022-01-15', 3),
-('Bolinhas', 'Coelho', 'An„o', '2023-03-10', 4),
-('Thor', 'C„o', 'Bulldog FrancÍs', '2021-07-30', 5),
+('Bolinhas', 'Coelho', 'An√£o', '2023-03-10', 4),
+('Thor', 'C√£o', 'Bulldog Franc√™s', '2021-07-30', 5),
 ('Simba', 'Gato', 'Europeu Comum', '2017-04-12', 6),
 ('Nala', 'Gato', 'Europeu Comum', '2017-04-12', 6),
-('Max', 'C„o', 'Golden Retriever', '2020-12-01', 7),
-('Kira', 'C„o', 'Husky', '2019-02-18', 8),
+('Max', 'C√£o', 'Golden Retriever', '2020-12-01', 7),
+('Kira', 'C√£o', 'Husky', '2019-02-18', 8),
 ('Tareco', 'Gato', 'Rafeiro', '2015-09-09', 9),
-('Pipoca', 'C„o', 'Poodle', '2022-11-20', 10),
-('Bethoven', 'C„o', 'S„o Bernardo', '2018-01-05', 10),
-('FÈlix', 'Gato', 'Maine Coon', '2021-06-15', 1),
-('Pepe', 'P·ssaro', 'Can·rio', '2023-01-10', 5);
+('Pipoca', 'C√£o', 'Poodle', '2022-11-20', 10),
+('Bethoven', 'C√£o', 'S√£o Bernardo', '2018-01-05', 10),
+('F√©lix', 'Gato', 'Maine Coon', '2021-06-15', 1),
+('Pepe', 'P√°ssaro', 'Can√°rio', '2023-01-10', 5);
 
--- 3. Inserir Veterin·rios (5 profissionais)
+-- 3. Inserir Veterin√°rios (5 profissionais)
 INSERT INTO veterinario (nome, celula_profissional, especialidade, telefone) VALUES
 ('Dra. Sofia Almeida', 'VET-1234', 'Cirurgia', '911111111'),
-('Dr. Jo„o Pedro', 'VET-5678', 'ClÌnica Geral', '922222222'),
+('Dr. Jo√£o Pedro', 'VET-5678', 'Cl√≠nica Geral', '922222222'),
 ('Dra. Marta Sousa', 'VET-9012', 'Dermatologia e Alergias', '933333333'),
-('Dr. Carlos Rocha', 'VET-3456', 'Animais ExÛticos', '966666666'),
-('Dra. InÍs Lima', 'VET-7890', 'Medicina Interna', '922555555');
+('Dr. Carlos Rocha', 'VET-3456', 'Animais Ex√≥ticos', '966666666'),
+('Dra. In√™s Lima', 'VET-7890', 'Medicina Interna', '922555555');
 
--- 4. Inserir ServiÁos (10 serviÁos diversos)
+-- 4. Inserir Servi√ßos (10 servi√ßos diversos)
 INSERT INTO servico (servico, preco) VALUES
 ('Consulta de Rotina', 35.00),
-('VacinaÁ„o Anual', 25.00),
-('DesparasitaÁ„o Interna', 15.00),
-('ColocaÁ„o de Microchip', 20.00),
+('Vacina√ß√£o Anual', 25.00),
+('Desparasita√ß√£o Interna', 15.00),
+('Coloca√ß√£o de Microchip', 20.00),
 ('Raio-X', 45.00),
 ('Ecografia Abdominal', 60.00),
-('Limpeza Dent·ria', 85.00),
+('Limpeza Dent√°ria', 85.00),
 ('Internamento (Dia)', 50.00),
 ('Exame de Sangue (Hemograma)', 40.00),
 ('Corte de Unhas', 10.00);
@@ -61,27 +61,27 @@ INSERT INTO medicamento (nome, fabricante, dose) VALUES
 ('Cerenia', 'Zoetis', '1 comprimido'),
 ('Apoquel 16mg', 'Zoetis', '1 comprimido/dia'),
 ('Panacur Pasta', 'MSD', '1 seringa'),
-('Soro FisiolÛgico', 'B. Braun', '250ml IV');
+('Soro Fisiol√≥gico', 'B. Braun', '250ml IV');
 
--- 6. Inserir Consultas (10 consultas histÛricas e recentes)
+-- 6. Inserir Consultas (10 consultas hist√≥ricas e recentes)
 INSERT INTO consulta (data_hora, motivo, observacoes, veterinario_id, animal_id) VALUES
-('2023-10-25 10:00:00', 'VacinaÁ„o Anual', 'Animal saud·vel, peso normal.', 2, 1),
-('2023-10-25 11:30:00', 'Comich„o e queda de pelo', 'Suspeita de dermatite alÈrgica alimentar.', 3, 2),
-('2023-10-26 15:00:00', 'ClaudicaÁ„o pata traseira', 'ComeÁou ontem apÛs salto. Dor ‡ palpaÁ„o.', 1, 3),
+('2023-10-25 10:00:00', 'Vacina√ß√£o Anual', 'Animal saud√°vel, peso normal.', 2, 1),
+('2023-10-25 11:30:00', 'Comich√£o e queda de pelo', 'Suspeita de dermatite al√©rgica alimentar.', 3, 2),
+('2023-10-26 15:00:00', 'Claudica√ß√£o pata traseira', 'Come√ßou ontem ap√≥s salto. Dor √† palpa√ß√£o.', 1, 3),
 ('2023-10-27 09:30:00', 'Check-up anual', 'Tudo regular.', 2, 4),
 ('2023-10-27 11:00:00', 'Dentes a crescer muito', 'Dentes desgastados com sucesso.', 4, 5),
-('2023-10-28 14:00:00', 'VÛmitos repetidos', 'Apresentou vÛmitos desde a manh„. Feito raio-X.', 5, 6),
-('2023-10-28 16:30:00', 'VacinaÁ„o felina', 'Veio com o irm„o (Nala). Tudo ok.', 2, 7),
-('2023-10-28 16:45:00', 'VacinaÁ„o felina', 'Veio com o irm„o (Simba). Tudo ok.', 2, 8),
-('2023-10-29 10:00:00', 'Limpeza dent·ria', 'Gengivite acentuada. ExtraÌdo um dente.', 1, 11),
-('2023-10-30 18:00:00', 'Corte de unhas', 'Apenas serviÁo de estÈtica.', 2, 15);
+('2023-10-28 14:00:00', 'V√≥mitos repetidos', 'Apresentou v√≥mitos desde a manh√£. Feito raio-X.', 5, 6),
+('2023-10-28 16:30:00', 'Vacina√ß√£o felina', 'Veio com o irm√£o (Nala). Tudo ok.', 2, 7),
+('2023-10-28 16:45:00', 'Vacina√ß√£o felina', 'Veio com o irm√£o (Simba). Tudo ok.', 2, 8),
+('2023-10-29 10:00:00', 'Limpeza dent√°ria', 'Gengivite acentuada. Extra√≠do um dente.', 1, 11),
+('2023-10-30 18:00:00', 'Corte de unhas', 'Apenas servi√ßo de est√©tica.', 2, 15);
 
--- 7. Inserir Detalhes das Consultas (FaturaÁ„o)
+-- 7. Inserir Detalhes das Consultas (Fatura√ß√£o)
 -- C1: Bobby (Vacina + Desparasitante)
 INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_id, consulta_id) VALUES
-(1, 25.00, 'ServiÁo vacinaÁ„o', NULL, 2, 1),
+(1, 25.00, 'Servi√ßo vacina√ß√£o', NULL, 2, 1),
 (1, 15.00, 'Nobivac', 4, NULL, 1),
-(1, 32.00, 'Bravecto prevenÁ„o', 1, NULL, 1);
+(1, 32.00, 'Bravecto preven√ß√£o', 1, NULL, 1);
 
 -- C2: Luna (Dermatologia)
 INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_id, consulta_id) VALUES
@@ -91,36 +91,36 @@ INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_i
 -- C3: Rex (Ortopedia)
 INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_id, consulta_id) VALUES
 (1, 35.00, 'Consulta geral', NULL, 1, 3),
-(1, 45.00, 'Raio-X membro pÈlvico', NULL, 5, 3),
+(1, 45.00, 'Raio-X membro p√©lvico', NULL, 5, 3),
 (1, 12.50, 'Meloxicam gotas', 3, NULL, 3);
 
 -- C4: Mia (Check-up)
 INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_id, consulta_id) VALUES
 (1, 35.00, 'Consulta rotina', NULL, 1, 4);
 
--- C5: Bolinhas (ExÛtico)
+-- C5: Bolinhas (Ex√≥tico)
 INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_id, consulta_id) VALUES
-(1, 35.00, 'Consulta ExÛticos', NULL, 1, 5);
+(1, 35.00, 'Consulta Ex√≥ticos', NULL, 1, 5);
 
--- C6: Thor (UrgÍncia VÛmitos)
+-- C6: Thor (Urg√™ncia V√≥mitos)
 INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_id, consulta_id) VALUES
 (1, 35.00, 'Consulta rotina', NULL, 1, 6),
 (1, 45.00, 'Raio-X Abdominal', NULL, 5, 6),
-(1, 40.00, 'An·lise de sangue', NULL, 9, 6),
-(1, 18.00, 'Anti-emÈtico (Cerenia)', 7, NULL, 6);
+(1, 40.00, 'An√°lise de sangue', NULL, 9, 6),
+(1, 18.00, 'Anti-em√©tico (Cerenia)', 7, NULL, 6);
 
 -- C7 & C8: Simba e Nala (Vacinas conjuntas)
 INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_id, consulta_id) VALUES
-(1, 25.00, 'VacinaÁ„o', NULL, 2, 7),
+(1, 25.00, 'Vacina√ß√£o', NULL, 2, 7),
 (1, 15.00, 'Vacina Felv', 5, NULL, 7),
-(1, 25.00, 'VacinaÁ„o', NULL, 2, 8),
+(1, 25.00, 'Vacina√ß√£o', NULL, 2, 8),
 (1, 15.00, 'Vacina Felv', 5, NULL, 8);
 
--- C9: Tareco (Dent·ria)
+-- C9: Tareco (Dent√°ria)
 INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_id, consulta_id) VALUES
 (1, 85.00, 'Limpeza c/ Anestesia', NULL, 7, 9),
-(1, 15.00, 'AntibiÛtico pÛs-operatÛrio (Synulox)', 6, NULL, 9);
+(1, 15.00, 'Antibi√≥tico p√≥s-operat√≥rio (Synulox)', 6, NULL, 9);
 
--- C10: Pepe (P·ssaro, unhas)
+-- C10: Pepe (P√°ssaro, unhas)
 INSERT INTO detalheconsulta (quantidade, preco, notas, medicamento_id, servico_id, consulta_id) VALUES
 (1, 10.00, 'Corte unhas', NULL, 10, 10);
