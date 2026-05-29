@@ -131,4 +131,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/fotos_animais/'
 
 # 3. O teu objetivo físico mantém-se! O ficheiro vai continuar a ser guardado onde queres
-MEDIA_ROOT = 'D:\\Study\\BD\\BD-Projeto\\src\\static\\media\\user_animal'
+MEDIA_ROOT = BASE_DIR / 'static' / 'media' / 'user_animal'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]

@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date 
 
 class Dono(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -31,6 +32,13 @@ class Animal(models.Model):
     def __str__(self):
         return f"{self.nome} ({self.especie})"
 
+    @property
+    def idade(self):
+        if self.data_nascimento:
+            hoje = date.today()
+            # Calcula os anos e subtrai 1 se ainda não tiver feito anos este ano
+            return hoje.year - self.data_nascimento.year - ((hoje.month, hoje.day) < (self.data_nascimento.month, self.data_nascimento.day))
+        return "N/D" # Caso o animal não tenha data de nascimento registada
 
 class Veterinario(models.Model):
     id = models.BigAutoField(primary_key=True)

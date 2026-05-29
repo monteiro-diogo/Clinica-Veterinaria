@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from .models import Dono, Animal, Veterinario, Consulta, Servico
-from .forms import DonoForm, AnimalForm, ConsultaForm
+from .forms import DonoForm, AnimalForm, ConsultaForm, ConsultaGeralForm
 
 # ==========================================
 # 1. HOME & PÁGINAS GERAIS
@@ -57,11 +57,13 @@ def dono_view(request):
 # ==========================================
 
 def login_view(request):
-    # Se o utilizador já está logado, manda-o para a home (evita login duplo)
-    if request.user.is_authenticated:
-        return redirect('home')
+    # Capta o URL de destino pretendido antes do login ser forçado
+    next_url = request.GET.get('next') or request.POST.get('next')
 
-    error_message = None # Inicializamos a variável
+    if request.user.is_authenticated:
+        return redirect(next_url) if next_url and next_url.startswith('/') else redirect('core:home')
+
+    error_message = None
 
     if request.method == 'POST':
         user_name = request.POST.get('username')
@@ -71,17 +73,16 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect(next_url) if next_url and next_url.startswith('/') else redirect('core:home')
         else:
-            # Definimos a mensagem aqui
             error_message = 'Utilizador ou palavra-passe incorretos.'
 
-    # Passamos a variável de erro (que será None se for um GET ou preenchida se falhar o POST)
-    return render(request, 'login.html', {'error': error_message})
+    # Passamos o next_url para o template para o não perdermos ao submeter o POST
+    return render(request, 'login.html', {'error': error_message, 'next': next_url})
 
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('core:home')
 
 # ==========================================
 # 3. GESTÃO DE DONOS (CLIENTES)
@@ -222,3 +223,19 @@ class ConsultaDetailView(DetailView):
     model = Consulta
     template_name = "consulta_detail.html"
     context_object_name = "consulta"
+
+class ConsultaGeralCreateView(LoginRequiredMixin, CreateView):
+    model = Consulta
+    form_class = ConsultaGeralForm
+    template_name = 'consulta_form.html'
+    login_url = reverse_lazy('core:login') # Redireciona para a tua página de login se o user for anónimo
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        # Injeta o utilizador autenticado no formulário para filtrar a query
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_success_url(self):
+        # Após guardar, o utilizador regressa ao seu perfil onde os dados já estarão refletidos
+        return reverse_lazy('core:perfil')
