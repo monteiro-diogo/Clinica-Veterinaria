@@ -107,6 +107,13 @@ class DetalheConsulta(models.Model):
     servico = models.ForeignKey(Servico, models.DO_NOTHING, blank=True, null=True)
     consulta = models.ForeignKey(Consulta, models.DO_NOTHING)
 
+    @property
+    def subtotal(self):
+        """Calcula o subtotal de cada linha multiplicando o preço pela quantidade"""
+        if self.preco and self.quantidade:
+            return self.preco * self.quantidade
+        return 0.00
+
     class Meta:
         managed = False
         db_table = 'detalheconsulta'

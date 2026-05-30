@@ -7,6 +7,8 @@
     <title>Agendar Consulta - Patudos | Clínica Veterinária</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         :root {
             --azul-profundo:  #1a3a5c;
@@ -259,13 +261,25 @@
                     {% if field.name != 'data_hora' and field.name != 'data' and field.name != 'hora' %}
                         <div class="form-group">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            {{ field }}
+                            
+                            {% if field.name == 'motivo' %}
+                                <select name="motivo" id="{{ field.id_for_label }}" class="form-input" required>
+                                    <option value="">-- Escolha um Serviço / Motivo --</option>
+                                    {% for servico in servicos %}
+                                        <option value="{{ servico.servico }}" data-id="{{ servico.id }}" {% if request.GET.motivo == servico.servico %}selected{% endif %}>
+                                            {{ servico.servico }} ({{ servico.preco }}€)
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <input type="hidden" name="servico_id" id="selected_servico_id" value="">
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}
 
                 <div class="scheduling-box">
-                    
                     <div class="form-group">
                         <label for="custom-date-picker">Data da Consulta</label>
                         <input type="date" id="custom-date-picker" class="form-input">
@@ -277,7 +291,8 @@
                             <div class="time-slot" data-time="09:00">09:00 - 10:00</div>
                             <div class="time-slot" data-time="10:00">10:00 - 11:00</div>
                             <div class="time-slot" data-time="11:00">11:00 - 12:00</div>
-                            <div class="time-slot disabled" data-time="12:00" data-lunch="true">12:00 - 13:00</div> <div class="time-slot" data-time="14:00">14:00 - 15:00</div>
+                            <div class="time-slot disabled" data-time="12:00" data-lunch="true">12:00 - 13:00</div> 
+                            <div class="time-slot" data-time="14:00">14:00 - 15:00</div>
                             <div class="time-slot" data-time="15:00">15:00 - 16:00</div>
                             <div class="time-slot" data-time="16:00">16:00 - 17:00</div>
                             <div class="time-slot" data-time="17:00">17:00 - 18:00</div>
@@ -303,9 +318,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             const datePicker = document.getElementById('custom-date-picker');
             const timeSlots = document.querySelectorAll('.time-slot');
-            
-            // Tenta capturar o campo select do Veterinário gerado pelo Django loop
-            // Geralmente o Django atribui o name="veterinario" ou id_veterinario
             const vetSelect = document.querySelector('select[name="veterinario"]') || document.querySelector('select[id*="veterinario"]');
 
             // Inputs escondidos do Django
@@ -316,35 +328,27 @@
             let dateValue = "";
             let timeValue = "";
 
-            // --- 1. FUNÇÃO AJAX QUE CONSULTA O BACKEND ---
+            // --- 1. FUNÇÃO AJAX HORÁRIOS DISPONÍVEIS ---
             function verificarHorariosDisponiveis() {
                 const data = datePicker.value;
                 const vetId = vetSelect ? vetSelect.value : '';
 
-                // Só faz o pedido se o utilizador já escolheu a DATA e o VETERINÁRIO
-                if (!data || !vetId) {
-                    return;
-                }
+                if (!data || !vetId) return;
 
-                // Faz a chamada assíncrona à nossa view do Django
                 fetch(`/ajax/horarios-indisponiveis/?veterinario_id=${vetId}&data=${data}`)
                     .then(response => response.json())
                     .then(backend => {
-                        const horasOcupadas = backend.horas_indisponiveis; // Recebe ex: ["10:00", "15:00"]
+                        const horasOcupadas = backend.horas_indisponiveis;
 
                         timeSlots.forEach(slot => {
                             const slotTime = slot.getAttribute('data-time');
-
-                            // Ignora e mantém bloqueado o horário de almoço fixo (12h)
                             if (slot.getAttribute('data-lunch') === "true") return;
 
                             if (horasOcupadas.includes(slotTime)) {
-                                // Se a hora já estiver ocupada por este veterinário neste dia:
                                 slot.classList.add('disabled');
                                 slot.classList.remove('selected');
-                                if (timeValue === slotTime) timeValue = ""; // Reseta se estava selecionado
+                                if (timeValue === slotTime) timeValue = "";
                             } else {
-                                // Se estiver livre, garante que pode ser clicado
                                 slot.classList.remove('disabled');
                             }
                         });
@@ -353,7 +357,6 @@
                     .catch(error => console.error("Erro ao carregar horários:", error));
             }
 
-            // --- 2. LOGICA DE SELEÇÃO E SUBMISSÃO ---
             function syncToDjango() {
                 if (!dateValue) return;
                 if (djangoDataHoraInput) {
@@ -363,7 +366,6 @@
                 if (djangoHoraInput && timeValue) djangoHoraInput.value = timeValue;
             }
 
-            // Escuta mudanças nos dois gatilhos principais: Data e Veterinário
             datePicker.addEventListener('change', function() {
                 dateValue = this.value;
                 verificarHorariosDisponiveis();
@@ -373,10 +375,9 @@
                 vetSelect.addEventListener('change', verificarHorariosDisponiveis);
             }
 
-            // Escuta o clique nos blocos de horas
             timeSlots.forEach(slot => {
                 slot.addEventListener('click', function() {
-                    if (this.classList.contains('disabled')) return; // Bloqueia clique se indisponível
+                    if (this.classList.contains('disabled')) return;
 
                     timeSlots.forEach(s => s.classList.remove('selected'));
                     this.classList.add('selected');
@@ -385,6 +386,26 @@
                     syncToDjango();
                 });
             });
+
+            // ─── 3. INTERLIGAÇÃO DINÂMICA DO SERVIÇO (NOVO) ───
+            const motivoSelect = document.querySelector('select[name="motivo"]');
+            const hiddenServicoIdInput = document.getElementById('selected_servico_id');
+
+            function atualizarServicoIdEscondido() {
+                if (motivoSelect) {
+                    const selectedOption = motivoSelect.options[motivoSelect.selectedIndex];
+                    if (selectedOption) {
+                        const servicoId = selectedOption.getAttribute('data-id');
+                        hiddenServicoIdInput.value = servicoId || "";
+                    }
+                }
+            }
+
+            if (motivoSelect) {
+                motivoSelect.addEventListener('change', atualizarServicoIdEscondido);
+                // Executa imediatamente para detetar se já veio um motivo da página de serviços
+                atualizarServicoIdEscondido();
+            }
         });
     </script>
 </body>

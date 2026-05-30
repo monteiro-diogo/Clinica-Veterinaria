@@ -191,7 +191,7 @@
                         <td>Dr(a). {{ consulta.veterinario.nome }}</td>
                         <td><span class="status-badge passada">Realizada</span></td>
                         <td style="text-align: center;">
-
+                            <a href="{% url 'core:consulta_detail' consulta.pk %}" class="btn-detalhes">
                                 <i class="fas fa-eye"></i> Detalhes
                             </a>
                         </td>

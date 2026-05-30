@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Detalhes da Consulta #{{ consulta.id }} - Patudos</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-inner">
+        <a href="{% url 'core:home' %}" class="topbar-logo">
+            <div class="logo-paw">🐾</div>
+            <div class="topbar-logo-text">
+                <h1>Patudos</h1>
+                <span>Medicina Veterinária</span>
+            </div>
+        </a>
+        <div class="topbar-right">
+            <a href="#back" onclick="history.back(); return false;" class="topbar-btn">
+                <i class="fas fa-arrow-left"></i> Voltar ao Perfil
+            </a>
+        </div>
+    </div>
+</div>
+
+<div style="max-width: 850px; margin: 3rem auto; padding: 0 2rem; box-sizing: border-box; width: 100%;">
+    
+    <main style="width: 100%; display: block; box-sizing: border-box;">
+        
+        <section class="content-card" style="margin-bottom: 2rem; width: 100%; box-sizing: border-box;">
+            <div class="card-header">
+                <h2><i class="fas fa-file-invoice"></i> Resumo da Consulta #{{ consulta.id }}</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; padding: 1.5rem 2rem;">
+                <div>
+                    <span style="color: #7f8c8d; font-size: 0.85rem; display: block; margin-bottom: 0.2rem;">ANIMAL</span>
+                    <strong style="font-size: 1.1rem; color: #2c3e50;">{{ consulta.animal.nome }}</strong> <span style="color: #7f8c8d;">({{ consulta.animal.especie }})</span>
+                </div>
+                <div>
+                    <span style="color: #7f8c8d; font-size: 0.85rem; display: block; margin-bottom: 0.2rem;">DATA E HORA</span>
+                    <strong style="font-size: 1.1rem; color: #2c3e50;">{{ consulta.data_hora|date:"d/m/Y H:i" }}</strong>
+                </div>
+                <div>
+                    <span style="color: #7f8c8d; font-size: 0.85rem; display: block; margin-bottom: 0.2rem;">MÉDICO VETERINÁRIO</span>
+                    <strong style="font-size: 1.1rem; color: #2c3e50;">Dr(a). {{ consulta.veterinario.nome }}</strong>
+                </div>
+                <div>
+                    <span style="color: #7f8c8d; font-size: 0.85rem; display: block; margin-bottom: 0.2rem;">MOTIVO</span>
+                    <strong style="font-size: 1.1rem; color: #2c3e50;">{{ consulta.motivo|default:"Não especificado" }}</strong>
+                </div>
+            </div>
+            
+            {% if consulta.observacoes %}
+            <div style="background-color: #f8f9fa; border-left: 4px solid #3498db; padding: 1rem; margin: 0 2rem 2rem 2rem; border-radius: 4px;">
+                <span style="font-weight: 600; color: #2c3e50; display: block; margin-bottom: 0.5rem;"><i class="fas fa-comment-medical"></i> Observações Clínicas Gerais:</span>
+                <p style="margin: 0; color: #555; line-height: 1.5;">{{ consulta.observacoes }}</p>
+            </div>
+            {% endif %}
+        </section>
+
+        <section class="content-card" style="width: 100%; box-sizing: border-box;">
+            <div class="card-header">
+                <h2><i class="fas fa-hand-holding-medical"></i> Serviços Prestados e Medicações</h2>
+            </div>
+            
+            <div style="width: 100%; overflow-x: auto; padding: 0 2rem 1.5rem 2rem; box-sizing: border-box;">
+                <table class="data-table" style="width: 100%; min-width: 750px; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 12px 0;">Item / Tipo</th>
+                            <th style="text-align: left; padding: 12px;">Medicamento Prescrito</th>
+                            <th style="text-align: center; padding: 12px; width: 70px;">Qtd.</th>
+                            <th style="text-align: right; padding: 12px; width: 110px;">Preço Unitário</th>
+                            <th style="text-align: right; padding: 12px; width: 110px;">Subtotal</th>
+                            <th style="text-align: left; padding: 12px 0 12px 12px;">Instruções / Notas do Médico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in detalhes %}
+                        <tr style="border-bottom: 1px solid #edf2f7;">
+                            <td style="padding: 12px 0;">
+                                {% if item.servico %}
+                                    <span style="color: #2c3e50; font-weight: 600;"><i class="fas fa-stethoscope"></i> {{ item.servico.servico }}</span>
+                                {% else %}
+                                    <span style="color: #95a5a6; font-style: italic;">Apenas Prescrição</span>
+                                {% endif %}
+                            </td>
+                            
+                            <td style="padding: 12px;">
+                                {% if item.medicamento %}
+                                    <strong style="color: #27ae60;"><i class="fas fa-pill"></i> {{ item.medicamento.nome }}</strong> 
+                                    <span style="font-size: 0.8rem; color: #7f8c8d;">({{ item.medicamento.dose }})</span>
+                                {% else %}
+                                    <span style="color: #95a5a6; font-style: italic;">Nenhum</span>
+                                {% endif %}
+                            </td>
+                            
+                            <td style="text-align: center; padding: 12px;">{{ item.quantidade }}</td>
+                            
+                            <td style="text-align: right; padding: 12px;">{{ item.preco|floatformat:2 }}€</td>
+                            
+                            <td style="text-align: right; font-weight: 600; padding: 12px; color: #2c3e50;">{{ item.subtotal|floatformat:2 }}€</td>
+                            
+                            <td style="padding: 12px 0 12px 12px;">
+                                {% if item.notas %}
+                                    <span style="font-size: 0.9rem; color: #555;">{{ item.notas }}</span>
+                                {% else %}
+                                    <span style="color: #b2bec3; font-style: italic; font-size: 0.85rem;">Sem notas</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #6c757d; padding: 2rem 0;">Não foram registados detalhes financeiros ou médicos para esta consulta.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div style="text-align: right; margin-top: 1.5rem; padding-top: 1rem; border-top: 2px solid #eee;">
+                    <span style="font-size: 1.1rem; color: #7f8c8d; margin-right: 1rem;">Valor Total da Consulta:</span>
+                    <strong style="font-size: 1.6rem; color: #2c3e50;">{{ total_consulta|floatformat:2 }}€</strong>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+</body>
+</html>
