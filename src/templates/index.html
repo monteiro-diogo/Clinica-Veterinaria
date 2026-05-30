@@ -25,36 +25,36 @@
 
     <div id="page-wrapper">
 
-        <div id="header-wrapper">
-            <header id="header">
+    <div id="header-wrapper">
+        <header id="header">
 
-                <a href="/" id="logo">
-                    <div class="logo-paw">🐾</div>
-                    <div class="logo-text">
-                        <h1>Patudos</h1>
-                        <span>Medicina Veterinária</span>
-                    </div>
-                </a>
+            <a href="/" id="logo">
+                <div class="logo-paw">🐾</div>
+                <div class="logo-text">
+                    <h1>Patudos</h1>
+                    <span>Medicina Veterinária</span>
+                </div>
+            </a>
 
-                <nav id="nav">
-                    <ul>
-                        <li class="current"><a href="/">Início</a></li>
-                        <li><a href="#features-wrapper">Serviços</a></li>
-                        <li><a href="#main-wrapper">A Clínica</a></li>
-                        <li><a href="#footer-wrapper">Contactos</a></li>
+            <nav id="nav">
+                <ul>
+                    <li class="current"><a href="/">Início</a></li>
+                    <li><a href="#features-wrapper">Serviços</a></li>
+                    <li><a href="#main-wrapper">A Clínica</a></li>
+                    <li><a href="#footer-wrapper">Contactos</a></li>
 
-                        {% if user.is_authenticated %}
-                            <li class="nav-btn-perfil"><a href="{% url 'core:perfil' %}">👤 O Meu Perfil</a></li>
-                            <li class="nav-btn-sair"><a href="{% url 'core:logout' %}">Sair</a></li> 
-                        {% else %}
-                            <li class="nav-btn-login"><a href="{% url 'core:login' %}">Login</a></li> 
-                            <li class="nav-btn-registo"><a href="{% url 'core:registo' %}">✨ Criar Conta</a></li> 
-                        {% endif %}
-                    </ul>
-                </nav>
+                    {% if user.is_authenticated %}
+                        <li class="nav-btn-perfil"><a href="{% url 'core:perfil' %}">👤 Perfil</a></li>
+                        <li class="nav-btn-sair"><a href="{% url 'core:logout' %}">Sair</a></li> 
+                    {% else %}
+                        <li class="nav-btn-login"><a href="{% url 'core:login' %}">Login</a></li> 
+                        <li class="nav-btn-registo"><a href="{% url 'core:registo' %}">✨ Criar Conta</a></li> 
+                    {% endif %}
+                </ul>
+            </nav>
 
-            </header>
-        </div>
+        </header>
+    </div>
 
         <div id="banner-wrapper">
             <div class="hero-glow" aria-hidden="true"></div>
@@ -68,34 +68,34 @@
                     <h2>Cuidamos de quem<br><em>mais ama.</em></h2>
                     <p>A nossa missão é proporcionar uma vida longa, saudável e feliz aos seus companheiros. Equipa especializada e tecnologia de ponta ao seu dispor.</p>
 
-                    <div class="banner-actions">
-                        <a href="{% url 'core:agendar_consulta_geral' %}" class="btn-hero btn-consulta">
-                            <span class="btn-icon">📅</span>
-                            Agendar Consulta
-                        </a>
-                        <a href="#footer-wrapper" class="btn-hero btn-urgencia">
-                            <div class="pulse-ring"></div>
-                            <span class="btn-icon">🚑</span>
-                            Urgência 24h
-                        </a>
-                    </div>
+            <div class="banner-actions">
+                <a href="{% url 'core:agendar_consulta_geral' %}" class="btn-hero btn-consulta">
+                    <span class="btn-icon">📅</span>
+                    Agendar Consulta
+                </a>
+                <a href="{% url 'core:servico_list' %}" class="btn-hero btn-urgencia">
+                    <div class="pulse-ring"></div>
+                    <span class="btn-icon">💼</span>
+                    Serviços
+                </a>
+            </div>
 
-                    <div class="banner-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">+5.000</div>
-                            <div class="stat-label">Animais tratados</div>
-                        </div>
-                        <div class="stat-divider"></div>
-                        <div class="stat-item">
-                            <div class="stat-number">12 anos</div>
-                            <div class="stat-label">De experiência</div>
-                        </div>
-                        <div class="stat-divider"></div>
-                        <div class="stat-item">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Urgências</div>
-                        </div>
-                    </div>
+            <div class="banner-stats">
+                <div class="stat-item">
+                    <div class="stat-number">+5.000</div>
+                    <div class="stat-label">Animais tratados</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">12 anos</div>
+                    <div class="stat-label">De experiência</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Cuidado Especial</div>
+                </div>
+            </div>
                 </div>
 
                 <div class="banner-visual">
@@ -231,10 +231,10 @@
                                 </div>
                             </div>
                             <div class="pillar">
-                                <div class="pillar-icon">🕐</div>
+                                <div class="pillar-icon">🤝</div>
                                 <div class="pillar-text">
-                                    <h4>Urgências 24 Horas</h4>
-                                    <p>Sempre disponíveis quando mais precisa de nós.</p>
+                                    <h4>Acompanhamento Especial</h4>
+                                    <p>Planos de saúde e suporte adaptados às necessidades do seu pet.</p>
                                 </div>
                             </div>
                         </div>
@@ -246,7 +246,7 @@
             </div>
         </div>
 
-        <div id="footer-wrapper">
+<div id="footer-wrapper">
             <footer id="footer">
                 <div class="footer-grid">
 
@@ -275,19 +275,13 @@
                     <div class="footer-col">
                         <h3>Serviços</h3>
                         <ul>
-                            <li><a href="#">Medicina Interna</a></li>
-                            <li><a href="#">Estomatologia</a></li>
-                            <li><a href="#">Análises Clínicas</a></li>
-                            <li><a href="#">Microchips & Passaportes</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-col">
-                        <h3>Dicas Úteis</h3>
-                        <ul>
-                            <li><a href="#">Calendário de Vacinas</a></li>
-                            <li><a href="#">Viajar com o seu pet</a></li>
-                            <li><a href="#">Alimentos proibidos</a></li>
+                            {% for s in servicos %}
+                                <li><a href="{% url 'core:servico_list' %}">{{ s.servico }}</a></li>
+                            {% empty %}
+                                <li><a href="{% url 'core:servico_list' %}">Check-ups Gerais</a></li>
+                                <li><a href="{% url 'core:servico_list' %}">Cirurgia & Raio-X</a></li>
+                                <li><a href="{% url 'core:servico_list' %}">Estética Animal</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
 
@@ -300,13 +294,13 @@
                                 <li><a href="{% url 'core:perfil' %}">O Meu Perfil</a></li>
                             {% endif %}
                             <li><a href="{% url 'core:agendar_consulta_geral' %}">Agendar Consulta</a></li>
-                            <li><a href="#">Urgência 24h</a></li>
+                            <li><a href="{% url 'core:servico_list' %}">Serviços</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div id="copyright">
-                    <p>© 2025 Patudos. Todos os direitos reservados.</p>
+                    <p>© 2026 Patudos. Todos os direitos reservados.</p>
                     <div class="copyright-links">
                         <a href="http://html5up.net">HTML5 UP</a>
                         <a href="https://pixabay.com/images/search/home%20pet/">Pixabay</a>

@@ -23,6 +23,8 @@ urlpatterns = [
     path('animais/<int:pk>/marcar-consulta/', views.ConsultaCreateView.as_view(), name='marcar_consulta'),
     path('consultas/<int:pk>/', views.ConsultaDetailView.as_view(), name='consulta_detail'),
     path('consultas/agendar/', views.ConsultaGeralCreateView.as_view(), name='agendar_consulta_geral'),
+    path('ajax/horarios-indisponiveis/', views.ajax_horarios_indisponiveis, name='ajax_horarios_indisponiveis'),
+    path('consulta/<int:pk>/desmarcar/', views.desmarcar_consulta, name='desmarcar_consulta'),
 
     # Login, Logout e Registo
     path('registo/', views.DonoCreateView.as_view(), name='registo'),

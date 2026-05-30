@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import JsonResponse
+from django.utils import timezone
 
 from .models import Dono, Animal, Veterinario, Consulta, Medicamento, Servico, DetalheConsulta
 from .forms import DonoForm, AnimalForm, ConsultaForm, ConsultaGeralForm, MedicamentoForm, ServicoForm, DetalheConsultaForm
@@ -35,20 +37,47 @@ def dono_view(request):
         dono = Dono.objects.get(email=request.user.email)
         animais = Animal.objects.filter(dono=dono)
         
-        consultas = Consulta.objects.filter(animal__in=animais).order_by('-data_hora')
+        # --- ALTERAÇÃO: Filtro cronológico das consultas ---
+        # Consultas Futuras: da mais próxima para a mais distante (>= agora)
+        consultas_futuras = Consulta.objects.filter(
+            animal__in=animais, 
+            data_hora__gte=timezone.now()
+        ).order_by('data_hora')
+        
+        # Consultas Passadas: da mais recente para a mais antiga (< agora)
+        consultas_passadas = Consulta.objects.filter(
+            animal__in=animais, 
+            data_hora__lt=timezone.now()
+        ).order_by('-data_hora')
         
     except Dono.DoesNotExist:
         dono = None
         animais = []
-        consultas = []
+        consultas_futuras = []
+        consultas_passadas = []
 
     context = {
         'dono': dono,
         'animais': animais,
-        'consultas': consultas,
+        'consultas_futuras': consultas_futuras,  # Enviado para a nova tabela
+        'consultas_passadas': consultas_passadas,  # Enviado para o histórico
     }
     
     return render(request, 'perfil.html', context)
+
+
+# --- Cancelamento de consultas pelo cliente ---
+@login_required
+def desmarcar_consulta(request, pk):
+    # Procura a consulta ou retorna erro 404 caso não exista
+    consulta = get_object_or_404(Consulta, pk=pk)
+    
+    # Validação de Segurança: Garante que o utilizador logado é mesmo o dono do animal da consulta
+    if consulta.animal.dono.email == request.user.email:
+        consulta.delete()
+        
+    # Redireciona de volta para a página de perfil (ajusta o nome da rota se necessário)
+    return redirect('core:perfil')
 
 
 # ==========================================
@@ -217,7 +246,34 @@ class ConsultaCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         # Quando a consulta é marcada, volta para o perfil deste mesmo animal
         return reverse_lazy('core:animal_perfil', kwargs={'pk': self.kwargs.get('pk')})
+
+
+# <<< NOVA VIEW PARA AJUSTE DOS HORÁRIOS DISPONÍVEIS (ISOLADA DA CLASSE) >>>
+def ajax_horarios_indisponiveis(request):
+    """
+    View AJAX independente que devolve as horas já ocupadas de um veterinário numa data.
+    """
+    veterinario_id = request.GET.get('veterinario_id')
+    data_selecionada = request.GET.get('data')  # Recebe o formato 'YYYY-MM-DD' vindo do HTML
+
+    # Se faltar algum dos parâmetros, devolvemos uma lista vazia para evitar erros catastróficos
+    if not veterinario_id or not data_selecionada:
+        return JsonResponse({'horas_indisponiveis': []})
+
+    # Como o teu modelo usa o campo unificado 'data_hora', aplicamos o filtro '__date' 
+    # para extrair e comparar apenas o dia na Base de Dados.
+    consultas_ocupadas = Consulta.objects.filter(
+        veterinario_id=veterinario_id,
+        data_hora__date=data_selecionada
+    )
     
+    # Extrai apenas as horas formatadas como "HH:MM" para bater certo com os quadrados do ecrã
+    horas_bloqueadas = [consulta.data_hora.strftime('%H:%M') for consulta in consultas_ocupadas]
+
+    # Devolve a resposta limpa em formato JSON para o JavaScript ler
+    return JsonResponse({'horas_indisponiveis': horas_bloqueadas})
+
+
 class ConsultaDetailView(DetailView):
     model = Consulta
     template_name = "consulta_detail.html"
@@ -238,7 +294,21 @@ class ConsultaGeralCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         # Após guardar, o utilizador regressa ao seu perfil onde os dados já estarão refletidos
         return reverse_lazy('core:perfil')
+    
+    #serviços -> marcaçao
+    def get_initial(self):
+        initial = super().get_initial()
+        # Captura o valor de 'motivo' enviado pela URL (se existir)
+        motivo_url = self.request.GET.get('motivo')
+        if motivo_url:
+            # Preenche o campo 'motivo' do teu formulário automaticamente
+            initial['motivo'] = motivo_url
+        return initial
 
+    def get_success_url(self):
+        return reverse_lazy('core:perfil')
+
+    
 # ==========================================
 # 6. GESTÃO DE SERVIÇOS E MEDICAMENTOS
 # ==========================================
@@ -248,22 +318,30 @@ class ServicoListView(ListView):
     template_name = "servico_list.html"
     context_object_name = "servicos"
 
-class ServicoCreateView(CreateView):
+class ServicoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Servico
     form_class = ServicoForm
     template_name = "servico_form.html"
     success_url = reverse_lazy("core:servico_list")
+
+    # (admin/funcionário)
+    def test_func(self):
+        return self.request.user.is_staff
 
 class MedicamentoListView(ListView):
     model = Medicamento
     template_name = "medicamento_list.html"
     context_object_name = "medicamentos"
 
-class MedicamentoCreateView(CreateView):
+class MedicamentoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Medicamento
     form_class = MedicamentoForm
     template_name = "medicamento_form.html"
     success_url = reverse_lazy("core:medicamento_list")
+
+    # (admin/funcionário)
+    def test_func(self):
+        return self.request.user.is_staff
 
 # ==========================================
 # 7. FATURAÇÃO / DETALHES DA CONSULTA

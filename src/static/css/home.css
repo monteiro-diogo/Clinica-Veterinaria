@@ -134,19 +134,20 @@ h1, h2, h3, h4, h5, h6 {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 4px;
-    margin-top: -4px; /* Corrigido de -40px para alinhar corretamente com o menu de 64px de altura */
+    gap: 8px;
+    margin-top: -4px;
 }
 
 #nav ul li a {
     display: inline-flex;
     align-items: center;
-    padding: 4px 12px;
-    border-radius: 8px; /* Cantos achatados conforme pedido anteriormente */
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
     font-size: 0.88rem;
     font-weight: 500;
     color: var(--texto-medio);
-    transition: all 0.25s ease;
+    transition: all 0.25s ease-in-out;
 }
 
 #nav ul li a:hover {
@@ -160,32 +161,36 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
 
-/* Botões especiais no nav */
+/* [CORRIGIDO] Botão 'Perfil' — Corporativo e Premium em Azul Profundo */
 .nav-btn-perfil a {
     background: var(--azul-profundo) !important;
     color: var(--branco) !important;
     font-weight: 600 !important;
-    box-shadow: 0 4px 12px rgba(26,58,92,0.25);
+    box-shadow: 0 4px 12px rgba(26, 58, 92, 0.15);
 }
 
 .nav-btn-perfil a:hover {
     background: var(--azul-medio) !important;
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(26,58,92,0.3);
+    box-shadow: 0 6px 16px rgba(26, 58, 92, 0.25);
 }
 
+/* [CORRIGIDO] Botão 'Sair' — Tom Clean com Linha Semitransparente (Removido Vermelho Choque/Rosa) */
 .nav-btn-sair a {
-    background: linear-gradient(135deg, var(--urgencia), #ff7878) !important;
-    color: var(--branco) !important;
-    font-weight: 600 !important;
-    box-shadow: 0 4px 12px rgba(232,93,93,0.3);
+    background: transparent !important;
+    border: 1.5px solid rgba(74, 144, 196, 0.3) !important;
+    color: var(--texto-medio) !important;
+    font-weight: 500 !important;
 }
 
 .nav-btn-sair a:hover {
-    background: var(--urgencia-hover) !important;
-    transform: translateY(-1px);
+    background: var(--urgencia) !important; /* Dispara o tom vermelho apenas no hover caso queira alerta */
+    color: var(--branco) !important;
+    border-color: var(--urgencia) !important;
+    box-shadow: 0 4px 12px rgba(232, 93, 93, 0.2);
 }
 
+/* Estados de Autenticação Deslogada (Login e Registo) */
 .nav-btn-login a {
     background: transparent !important;
     border: 1.5px solid var(--azul-claro) !important;
@@ -201,12 +206,12 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(135deg, var(--azul-claro), var(--aqua)) !important;
     color: var(--branco) !important;
     font-weight: 600 !important;
-    box-shadow: 0 4px 14px rgba(74,144,196,0.4);
+    box-shadow: 0 4px 14px rgba(74, 144, 196, 0.4);
 }
 
 .nav-btn-registo a:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(74,144,196,0.5);
+    box-shadow: 0 6px 20px rgba(74, 144, 196, 0.5);
 }
 
 /* ── HERO / BANNER ─────────────────────── */

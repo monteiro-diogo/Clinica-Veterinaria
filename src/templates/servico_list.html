@@ -11,6 +11,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+    
+    <style>
+        /* ──── CORREÇÃO DO LAYOUT ENCURTADO ──── */
+        /* Força o contentor a libertar-se da grelha de perfil e a centrar o conteúdo na página inteira */
+        .dashboard-container {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 2rem 20px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Garante que o cartão de conteúdo se expande de forma fluida até 1000px */
+        .profile-content {
+            width: 100% !important;
+            max-width: 1000px !important;
+            padding-top: 0 !important;
+            flex: none !important;
+        }
+
+        .content-card {
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .data-table {
+            width: 100% !important;
+        }
+
+        /* ──── ESTILOS DE INTERAÇÃO ──── */
+        .clickable-row {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .clickable-row:hover {
+            background-color: rgba(74, 144, 196, 0.08) !important;
+        }
+        .service-link {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+        }
+        .service-link:hover {
+            color: #2a6496;
+        }
+    </style>
 </head>
 <body>
     <div class="topbar">
@@ -30,27 +80,34 @@
         </div>
     </div>
 
-    <div class="dashboard-container" style="justify-content: center;">
-        <main class="profile-content" style="width: 100%; max-width: 900px; padding-top: 2rem;">
+    <div class="dashboard-container">
+        <main class="profile-content">
             <section class="content-card">
                 <div class="card-header">
                     <h2><i class="fas fa-stethoscope"></i> Catálogo de Serviços</h2>
-                    <a href="{% url 'core:servico_create' %}">+ Adicionar Serviço</a>
+                    
+                    {% if user.is_authenticated and user.is_staff %}
+                        <a href="{% url 'core:servico_create' %}">+ Adicionar Serviço</a>
+                    {% endif %}
                 </div>
                 
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Serviço</th>
+                            <th>Serviço (Clique para Agendar)</th>
                             <th>Preço (€)</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for servico in servicos %}
-                        <tr>
+                        <tr class="clickable-row" onclick="window.location='{% url 'core:agendar_consulta_geral' %}?motivo={{ servico.servico|urlencode }}';">
                             <td>#{{ servico.id }}</td>
-                            <td><strong>{{ servico.servico }}</strong></td>
+                            <td>
+                                <a href="{% url 'core:agendar_consulta_geral' %}?motivo={{ servico.servico|urlencode }}" class="service-link">
+                                    <strong><i class="far fa-calendar-plus" style="margin-right: 6px; color: #4a90c4;"></i> {{ servico.servico }}</strong>
+                                </a>
+                            </td>
                             <td>{{ servico.preco }} €</td> 
                         </tr>
                         {% empty %}
