@@ -29,4 +29,13 @@ urlpatterns = [
     path('login/', views.login_view, name='login'), # Ajustado para views.login_view
     path('logout/', views.logout_view, name='logout'),
     path('meu-perfil/', views.dono_view, name='perfil'),
+
+    # Serviços e Medicamentos (Catálogos)
+    path('servicos/', views.ServicoListView.as_view(), name='servico_list'),
+    path('servicos/add/', views.ServicoCreateView.as_view(), name='servico_create'),
+    path('medicamentos/', views.MedicamentoListView.as_view(), name='medicamento_list'),
+    path('medicamentos/add/', views.MedicamentoCreateView.as_view(), name='medicamento_create'),
+
+    # Faturação (Adicionar detalhes a uma consulta específica)
+    path('consultas/<int:consulta_id>/add-detalhe/', views.DetalheConsultaCreateView.as_view(), name='detalheconsulta_create'),
 ]

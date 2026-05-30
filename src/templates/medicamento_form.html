@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Detalhe de Consulta - Patudos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="register-wrapper">
+        <div class="login-box">
+            <div class="register-badge">Faturação</div>
+            <h2>Adicionar Intervenção</h2>
+            <p>Registe serviços ou medicamentos associados à consulta.</p>
+
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="input-group {% if field.name == 'consulta' %}hidden-if-needed{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn-submit">Adicionar à Fatura</button>
+            </form>
+
+            <div class="footer-links">
+                <a href="javascript:history.back()">← Cancelar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

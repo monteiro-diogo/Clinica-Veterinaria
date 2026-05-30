@@ -7,9 +7,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-from .models import Dono, Animal, Veterinario, Consulta, Servico
-from .forms import DonoForm, AnimalForm, ConsultaForm, ConsultaGeralForm
+from .models import Dono, Animal, Veterinario, Consulta, Medicamento, Servico, DetalheConsulta
+from .forms import DonoForm, AnimalForm, ConsultaForm, ConsultaGeralForm, MedicamentoForm, ServicoForm, DetalheConsultaForm
 
 # ==========================================
 # 1. HOME & PÁGINAS GERAIS
@@ -239,3 +238,49 @@ class ConsultaGeralCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         # Após guardar, o utilizador regressa ao seu perfil onde os dados já estarão refletidos
         return reverse_lazy('core:perfil')
+
+# ==========================================
+# 6. GESTÃO DE SERVIÇOS E MEDICAMENTOS
+# ==========================================
+
+class ServicoListView(ListView):
+    model = Servico
+    template_name = "servico_list.html"
+    context_object_name = "servicos"
+
+class ServicoCreateView(CreateView):
+    model = Servico
+    form_class = ServicoForm
+    template_name = "servico_form.html"
+    success_url = reverse_lazy("core:servico_list")
+
+class MedicamentoListView(ListView):
+    model = Medicamento
+    template_name = "medicamento_list.html"
+    context_object_name = "medicamentos"
+
+class MedicamentoCreateView(CreateView):
+    model = Medicamento
+    form_class = MedicamentoForm
+    template_name = "medicamento_form.html"
+    success_url = reverse_lazy("core:medicamento_list")
+
+# ==========================================
+# 7. FATURAÇÃO / DETALHES DA CONSULTA
+# ==========================================
+
+class DetalheConsultaCreateView(CreateView):
+    model = DetalheConsulta
+    form_class = DetalheConsultaForm
+    template_name = "detalheconsulta_form.html"
+
+    def get_initial(self):
+        # Trade-off: Preenchemos a consulta de forma automática através do ID passado no URL,
+        # melhorando a experiência do utilizador ao evitar que este tenha de procurar a consulta numa lista extensa.
+        initial = super().get_initial()
+        initial['consulta'] = self.kwargs.get('consulta_id')
+        return initial
+
+    def get_success_url(self):
+        # Após adicionar um detalhe (ex: vacina ou tosquia), regressa à página da consulta correspondente
+        return reverse_lazy('core:consulta_detail', kwargs={'pk': self.kwargs.get('consulta_id')})

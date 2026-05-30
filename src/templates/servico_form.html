@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Novo Serviço - Patudos</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+    <div class="particles" aria-hidden="true">
+        <div class="particle" style="width:80px;height:80px;left:10%;animation-duration:18s;animation-delay:0s;"></div>
+        <div class="particle" style="width:50px;height:50px;left:25%;animation-duration:22s;animation-delay:4s;"></div>
+    </div>
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="register-wrapper">
+        <a href="{% url 'core:home' %}" class="login-logo">
+            <div class="logo-paw">🐾</div>
+            <div class="logo-text-wrap">
+                <h1>Patudos</h1>
+                <span>Medicina Veterinária</span>
+            </div>
+        </a>
+
+        <div class="login-box">
+            <div class="register-badge">Catálogo</div>
+            <h2>Adicionar Serviço</h2>
+            <p>Insira os detalhes do novo ato médico</p>
+
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="input-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <span class="error-text">{{ field.errors.0 }}</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn-submit">Guardar Serviço</button>
+            </form>
+
+            <div class="footer-links">
+                <a href="{% url 'core:servico_list' %}">← Voltar à Lista</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

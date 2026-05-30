@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Medicamentos - Patudos | Clínica Veterinária</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+</head>
+<body>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <a href="{% url 'core:home' %}" class="topbar-logo">
+                <div class="logo-paw">🐾</div>
+                <div class="topbar-logo-text"><h1>Patudos</h1></div>
+            </a>
+            <div class="topbar-right">
+                <a href="{% url 'core:home' %}" class="topbar-btn topbar-btn-home"><i class="fas fa-home"></i> Início</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-container" style="justify-content: center;">
+        <main class="profile-content" style="width: 100%; max-width: 900px; padding-top: 2rem;">
+            <section class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-pills"></i> Catálogo de Medicamentos</h2>
+                    <a href="{% url 'core:medicamento_create' %}">+ Adicionar Medicamento</a>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Fabricante</th>
+                            <th>Dose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for med in medicamentos %}
+                        <tr>
+                            <td><strong>{{ med.nome }}</strong></td>
+                            <td>{{ med.fabricante|default:"N/A" }}</td>
+                            <td>{{ med.dose|default:"N/A" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">Não existem medicamentos registados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

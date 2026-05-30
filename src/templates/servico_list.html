@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Serviços - Patudos | Clínica Veterinária</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+</head>
+<body>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <a href="{% url 'core:home' %}" class="topbar-logo">
+                <div class="logo-paw">🐾</div>
+                <div class="topbar-logo-text">
+                    <h1>Patudos</h1>
+                    <span>Medicina Veterinária</span>
+                </div>
+            </a>
+            <div class="topbar-right">
+                <a href="{% url 'core:home' %}" class="topbar-btn topbar-btn-home">
+                    <i class="fas fa-home"></i> Início
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-container" style="justify-content: center;">
+        <main class="profile-content" style="width: 100%; max-width: 900px; padding-top: 2rem;">
+            <section class="content-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-stethoscope"></i> Catálogo de Serviços</h2>
+                    <a href="{% url 'core:servico_create' %}">+ Adicionar Serviço</a>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Serviço</th>
+                            <th>Preço (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for servico in servicos %}
+                        <tr>
+                            <td>#{{ servico.id }}</td>
+                            <td><strong>{{ servico.servico }}</strong></td>
+                            <td>{{ servico.preco }} €</td> 
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" style="text-align: center;">Não existem serviços registados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+            </section>
+        </main>
+    </div>
+</body>
+</html>
