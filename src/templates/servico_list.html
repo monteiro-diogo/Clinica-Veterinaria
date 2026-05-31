@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/servico_list.css' %}">
     <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
     
 </head>
@@ -31,43 +30,45 @@
         </div>
     </div>
 
-    <div class="dashboard-container">
+    <div class="dashboard-container no-sidebar">
         <main class="profile-content">
             <section class="content-card">
                 <div class="card-header">
                     <h2><i class="fas fa-stethoscope"></i> Catálogo de Serviços</h2>
                     
                     {% if user.is_authenticated and user.is_staff %}
-                        <a href="{% url 'core:servico_create' %}">+ Adicionar Serviço</a>
+                        <a href="{% url 'core:servico_create' %}" class="btn-add-service">+ Adicionar Serviço</a>
                     {% endif %}
                 </div>
                 
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Serviço (Clique para Agendar)</th>
-                            <th>Preço (€)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for servico in servicos %}
-                        <tr class="clickable-row" onclick="window.location='{% url 'core:agendar_consulta_geral' %}?motivo={{ servico.servico|urlencode }}';">
-                            <td>#{{ servico.id }}</td>
-                            <td>
-                                <a href="{% url 'core:agendar_consulta_geral' %}?motivo={{ servico.servico|urlencode }}" class="service-link">
-                                    <strong><i class="far fa-calendar-plus" style="margin-right: 6px; color: #4a90c4;"></i> {{ servico.servico }}</strong>
-                                </a>
-                            </td>
-                            <td>{{ servico.preco }} €</td> 
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="3" style="text-align: center;">Não existem serviços registados.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Serviço (Clique para Agendar)</th>
+                                <th>Preço (€)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for servico in servicos %}
+                            <tr class="clickable-row" onclick="window.location='{% url 'core:agendar_consulta_geral' %}?motivo={{ servico.servico|urlencode }}';">
+                                <td>#{{ servico.id }}</td>
+                                <td>
+                                    <a href="{% url 'core:agendar_consulta_geral' %}?motivo={{ servico.servico|urlencode }}" class="service-link">
+                                        <strong><i class="far fa-calendar-plus" style="margin-right: 6px; color: #4a90c4;"></i> {{ servico.servico }}</strong>
+                                    </a>
+                                </td>
+                                <td>{{ servico.preco }} €</td> 
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" style="text-align: center;">Não existem serviços registados.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 
             </section>
         </main>

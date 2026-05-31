@@ -520,50 +520,183 @@ h5 {
         display: none;
     }
 
-/* Estilos para os estados das consultas e botões de ação */
-        .status-badge.agendada {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .status-badge.passada {
-            background-color: #e2e3e5;
-            color: #383d41;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .btn-desmarcar {
-            color: #dc3545;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            text-decoration: none;
-            transition: color 0.2s;
-            font-size: 0.9rem;
-        }
-        .btn-desmarcar:hover {
-            color: #a71d2a;
-            text-decoration: underline;
-        }
-        /* NOVO: Estilo para o botão de Detalhes */
-        .btn-detalhes {
-            color: #007bff;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            text-decoration: none;
-            transition: color 0.2s;
-            font-size: 0.9rem;
-        }
-        .btn-detalhes:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }   
+    /* Estilos para os estados das consultas e botões de ação */
+    .status-badge.agendada {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    .status-badge.passada {
+        background-color: #e2e3e5;
+        color: #383d41;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    .btn-desmarcar {
+        color: #dc3545;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s;
+        font-size: 0.9rem;
+    }
+    .btn-desmarcar:hover {
+        color: #a71d2a;
+        text-decoration: underline;
+    }
+    .btn-detalhes {
+        color: #007bff;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s;
+        font-size: 0.9rem;
+    }
+    .btn-detalhes:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }   
+} /* <--- A chaveta fecha aqui! Libertando as regras abaixo para o Desktop */
+
+
+/* ─── SERVIÇOS, LISTAGENS E RESUMOS (FORA DOS MEDIA QUERIES) ─── */
+
+/* Força o comportamento correto APENAS quando a classe no-sidebar estiver presente */
+.dashboard-container.no-sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;       /* Centra horizontalmente no ecrã */
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;           /* Permite que use a largura total para calcular o centro */
+    margin: 2rem auto !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* Garante que o conteúdo útil alargue elegantemente até 1000px (largura padrão profissional) */
+.dashboard-container.no-sidebar .profile-content {
+    width: 100% !important;
+    max-width: 1000px !important;         
+    margin: 0 auto !important;
+    padding-top: 0 !important;
+    flex: none !important;
+    display: block !important;
+}
+
+/* Cartão que envolve as tabelas, formulários e dados */
+.dashboard-container.no-sidebar .content-card {
+    width: 100% !important;
+    background: #ffffff; 
+    border-radius: 20px;
+    border: 1px solid rgba(74, 144, 196, 0.1);
+    box-shadow: 0 8px 32px rgba(26, 58, 92, 0.08);
+    overflow: hidden;    
+    box-sizing: border-box !important;
+    margin-bottom: 1.5rem;
+}
+
+/* Faz com que a tabela preencha a totalidade do cartão expandido */
+.dashboard-container.no-sidebar .data-table {
+    width: 100% !important;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+/* Scroll horizontal macio para tabelas em ecrãs pequenos */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ──── ESTILOS DE INTERAÇÃO E REFEITOS ──── */
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.clickable-row:hover {
+    background-color: rgba(74, 144, 196, 0.06) !important;
+}
+
+.service-link {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+.service-link:hover {
+    color: #2a6496;
+}
+
+/* Cancela o Grid do perfil original e força comportamento em coluna centrada */
+.dashboard-container.no-sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;       /* Alinha horizontalmente ao centro */
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;           /* Ocupa toda a largura do ecrã para poder calcular o centro */
+    margin: 2rem auto !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* Força o contentor do catálogo a alargar elegantemente até 1000px */
+.dashboard-container.no-sidebar .profile-content {
+    width: 100% !important;
+    max-width: 1000px !important;         /* Fica alinhado com a largura da topbar */
+    margin: 0 auto !important;
+    padding: 0 !important;
+    flex: none !important;
+    display: block !important;
+}
+
+/* Garante o comportamento correto do cartão */
+.dashboard-container.no-sidebar .content-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(26, 58, 92, 0.08);
+    border: 1px solid rgba(74, 144, 196, 0.1);
+    overflow: hidden;
+}
+
+/* Faz com que a tabela preencha todo o espaço do cartão */
+.dashboard-container.no-sidebar .data-table {
+    width: 100% !important;
+    border-collapse: collapse;
+}
+
+/* Resolve a barra cinzenta horizontal de rolagem em ecrãs mais pequenos */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Estilos de interação rápidos */
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.clickable-row:hover {
+    background-color: rgba(74, 144, 196, 0.06) !important;
+}
+.service-link {
+    color: inherit;
+    text-decoration: none;
+    display: block;
 }
