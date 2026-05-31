@@ -9,14 +9,11 @@ urlpatterns = [
     path('donos/add/', views.DonoCreateView.as_view(), name='dono_create'),
     path('donos/<int:pk>/', views.DonoDetailView.as_view(), name='dono_detail'),
     path('donos/<int:pk>/edit/', views.DonoUpdateView.as_view(), name='dono_edit'),
-    path('donos/<int:pk>/delete/', views.DonoDeleteView.as_view(), name='dono_delete'),
     
     # Animais
     path('animais/add/', views.AnimalCreateView.as_view(), name='animal_create'),
     path('animais/<int:pk>/', views.AnimalDetailView.as_view(), name='animal_perfil'),
     path('animais/<int:pk>/editar/', views.AnimalUpdateView.as_view(), name='animal_update'),
-    path('animais/<int:pk>/delete/', views.AnimalDeleteView.as_view(), name='animal_delete'),
-    
 
     # Consultas
     path('consultas/', views.ConsultaListView.as_view(), name='consulta_list'),
