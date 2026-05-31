@@ -147,7 +147,7 @@ class DonoCreateView(CreateView):
     # Processo de registo público na plataforma
     model = Dono
     form_class = DonoForm
-    template_name = "registro.html"
+    template_name = "registo.html"
     success_url = reverse_lazy("core:home")
 
     def form_valid(self, form):
@@ -167,7 +167,7 @@ class DonoCreateView(CreateView):
             )
             
             # 4. Experiência de utilizador fluida: acabou de se registar, fica logo logado automaticamente
-            login(self.request, user)
+            login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
             
         return response
 
