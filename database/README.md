@@ -1,8 +1,14 @@
 # 🗄️ Documentação da Base de Dados
 
-Esta pasta contém a definição estrutural da base de dados da Clínica Veterinária. O sistema utiliza um modelo relacional robusto, preparado não só para a gestão de pacientes, mas também para o registo clínico e de faturação.
+Esta pasta contém a definição estrutural da base de dados da Clínica Veterinária. 
 
-## 🗺️ Modelo de Dados (Tabelas e Atributos)
+- **`onda/`**: Modelos ER e Físico, assim como o .json para abrir no https://onda.dei.uc.pt/v4/.
+- `vet_clinic.sql`: Script original com a criação das tabelas e constraints de validação (i.e., chaves estrangeiras e limites para NIF e Telefone) em PostgreSQL.
+- `seed.sql`: Script com dados de teste de modo a preencher as tabelas.
+
+O sistema utiliza um modelo relacional robusto, preparado não só para a gestão de pacientes, mas também para o registo clínico e de faturação.
+
+## 🗺️ Modelos de Dados (Tabelas e Atributos)
 
 Abaixo está a descrição detalhada de cada entidade do sistema, com base no script SQL original:
 
@@ -21,6 +27,7 @@ Regista os animais que são atendidos na clínica.
 * **especie:** Ex: Cão, Gato, Coelho (Obrigatório).
 * **raca:** Raça específica do animal.
 * **data_nascimento:** Data de nascimento para cálculo de idade.
+* **foto:** Foto opcional do animal.
 * **dono_id:** Chave estrangeira que liga o animal ao seu Dono (Relação 1:N).
 
 ### 🩺 3. Veterinário
@@ -63,8 +70,10 @@ Esta é uma tabela de ligação fundamental. Permite registar múltiplos serviç
 * **medicamento_id:** (Opcional) Chave estrangeira caso o detalhe seja a venda/aplicação de um Medicamento.
 * **servico_id:** (Opcional) Chave estrangeira caso o detalhe seja a prestação de um Serviço.
 
+## 📚 Modelo ER
 
-## 📜 Ficheiros Incluídos
-- **`onda/`**: Ficheiros .json e .png com a ideia para a base de dados. 
-- `vet_clinic.sql`: Script original com a criação das tabelas e constrangimentos (Constraints) de validação (como os limites de NIF e Telefone, e chaves estrangeiras) em PostgreSQL.
-- `seed.sql`: Script com dados iniciais de teste.
+![alt text](<Modelo ER-1.png>)
+
+## ⛏️ Modelo Fisico
+
+![alt text](<Modelo Fisico.png>)
