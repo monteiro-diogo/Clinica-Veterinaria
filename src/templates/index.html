@@ -155,7 +155,7 @@
                     <div class="feature-body">
                         <div class="feature-sub">Alta tecnologia</div>
                         <h2>Cirurgia & Raio-X</h2>
-                        <p>Bloco operatório moderno e exames de imagem avançados para tratar qualquer problema com segurança.</p>
+                        <p>Bloco operatório moderno e exames de imagem avançados para tratar qualquer problem com segurança.</p>
                     </div>
                 </div>
 
@@ -246,7 +246,11 @@
             </div>
         </div>
 
-<div id="footer-wrapper">
+        <div style="text-align: center; padding: 3rem 1rem; background: #f2f7fc;">
+            <a href="/medicamentos/" class="btn-sobre" style="display: inline-flex; min-width: 180px; justify-content: center;">Medicamentos</a>
+        </div>
+
+        <div id="footer-wrapper">
             <footer id="footer">
                 <div class="footer-grid">
 
@@ -295,6 +299,7 @@
                             {% endif %}
                             <li><a href="{% url 'core:agendar_consulta_geral' %}">Agendar Consulta</a></li>
                             <li><a href="{% url 'core:servico_list' %}">Serviços</a></li>
+                            <li><a href="/medicamentos/">Medicamentos</a></li>
                         </ul>
                     </div>
                 </div>
@@ -310,7 +315,9 @@
             </footer>
         </div>
 
-    </div><script src="{% static 'js/jquery.min.js' %}"></script>
+    </div>
+    
+    <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
     <script src="{% static 'js/browser.min.js' %}"></script>
     <script src="{% static 'js/breakpoints.min.js' %}"></script>
