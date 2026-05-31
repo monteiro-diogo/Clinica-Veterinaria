@@ -28,7 +28,7 @@ urlpatterns = [
 
     # Login, Logout e Registo
     path('registo/', views.DonoCreateView.as_view(), name='registo'),
-    path('login/', views.login_view, name='login'), # Ajustado para views.login_view
+    path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('meu-perfil/', views.dono_view, name='perfil'),
 
