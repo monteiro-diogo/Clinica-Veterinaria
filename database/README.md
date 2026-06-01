@@ -71,9 +71,8 @@ Esta é uma tabela de ligação fundamental. Permite registar múltiplos serviç
 * **servico_id:** (Opcional) Chave estrangeira caso o detalhe seja a prestação de um Serviço.
 
 ## 📚 Modelo ER
-
-![alt text](<Modelo ER-1.png>)
+<img width="2055" height="1353" alt="Modelo ER" src="https://github.com/user-attachments/assets/66786c0b-5aab-4556-ac05-9c94f71d7924" />
 
 ## ⛏️ Modelo Fisico
+<img width="2089" height="1353" alt="Modelo Fisico" src="https://github.com/user-attachments/assets/785254df-ce53-44e6-a334-6b87fe711714" />
 
-![alt text](<Modelo Fisico.png>)
