@@ -14,7 +14,10 @@ Este projeto é um sistema de gestão para uma clínica veterinária, desenvolvi
 - `/src`: Código fonte do projeto Django.
 
 ## 📽️ DEMO
-### Website
-<video controls src="Final.mp4" title="Website Demo"></video>
-### Django Admin
-<video controls src="Django Admin.mp4" title="Django Admin Dashboard Demo"></video>
+### Website 🐾
+https://github.com/user-attachments/assets/18e712b1-8fac-4a55-983e-0ab81cc200fa
+
+### Django Admin 💻
+https://github.com/user-attachments/assets/3f571bb0-06b1-4e04-a9dc-81e497581ec3
+
+
