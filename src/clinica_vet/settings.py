@@ -126,13 +126,11 @@ USE_TZ = True
 
 # 1. Mantém os teus estáticos intocáveis
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static',]
 
-# 2. MUDANÇA ESSENCIAL: O URL web precisa de ser diferente para enganar o validador
+# 2. Caminho falso para podermos ter as fotos em "static/media" e passar a validação
 MEDIA_URL = '/fotos_animais/'
 
-# 3. O teu objetivo físico mantém-se! O ficheiro vai continuar a ser guardado onde queres
+# 3. Caminho real onde as fotos dos animais serão guardadas
 MEDIA_ROOT = BASE_DIR / 'static' / 'media' / 'user_animal'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]

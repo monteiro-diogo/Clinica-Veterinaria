@@ -101,7 +101,7 @@
                     <tr>
                         <td>{{ consulta.data_hora|date:"d/m/Y H:i" }}</td>
                         <td><strong>{{ consulta.animal.nome }}</strong></td>
-                        <td>Dr(a). {{ consulta.veterinario.nome }}</td>
+                        <td>{{ consulta.veterinario.nome }}</td>
                         <td><span class="status-badge agendada">Confirmada</span></td>
                         <td style="text-align: center;">
                         <a href="{% url 'core:desmarcar_consulta' consulta.pk %}" 
@@ -139,7 +139,7 @@
                     <tr>
                         <td>{{ consulta.data_hora|date:"d/m/Y H:i" }}</td>
                         <td>{{ consulta.animal.nome }}</td>
-                        <td>Dr(a). {{ consulta.veterinario.nome }}</td>
+                        <td>{{ consulta.veterinario.nome }}</td>
                         <td><span class="status-badge passada">Realizada</span></td>
                         <td style="text-align: center;">
                             <a href="{% url 'core:consulta_detail' consulta.pk %}" class="btn-detalhes">

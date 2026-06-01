@@ -20,6 +20,8 @@ class HomeView(TemplateView):
     # Página inicial pública do site
     template_name = 'index.html'
 
+    # O motor de contexto do index é responsável por puxar os dados mais relevantes para a homepage, 
+    # como os serviços em destaque e a equipa de veterinários
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Slicing [:3] para não inundar a homepage, mostramos só os 3 primeiros serviços do catálogo
@@ -29,7 +31,7 @@ class HomeView(TemplateView):
         return context
     
 class DonoView(DetailView):
-    # Fallback ou vista base para detalhes do dono usando CBV (mapeia direto para perfil.html)
+    # Página de perfil do cliente, onde ele vê os detalhes da sua conta e o dashboard das suas consultas e animais
     model = Dono
     template_name = "perfil.html"
     context_object_name = "dono"
@@ -63,6 +65,7 @@ def dono_view(request):
         consultas_futuras = []
         consultas_passadas = []
 
+    # Passamos tudo para o contexto do template para o dashboard do perfil do cliente
     context = {
         'dono': dono,
         'animais': animais,
@@ -304,7 +307,7 @@ def ajax_horarios_indisponiveis(request):
 # VISTA CORRIGIDA: Agora a Class-Based View injeta os detalhes e calcula o total financeiro!
 class ConsultaDetailView(LoginRequiredMixin, DetailView):
     model = Consulta
-    template_name = "consulta_detail.html" # Garante que aponta para o teu ficheiro HTML correto
+    template_name = "consulta_detail.html"
     context_object_name = "consulta"
 
     def get_context_data(self, **kwargs):

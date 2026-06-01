@@ -238,16 +238,10 @@
                                 </div>
                             </div>
                         </div>
-
-                        <a href="#" class="btn-sobre">ℹ️ Saber mais sobre nós</a>
                     </div>
                 </div>
 
             </div>
-        </div>
-
-        <div style="text-align: center; padding: 3rem 1rem; background: #f2f7fc;">
-            <a href="/medicamentos/" class="btn-sobre" style="display: inline-flex; min-width: 180px; justify-content: center;">Medicamentos</a>
         </div>
 
         <div id="footer-wrapper">
@@ -292,8 +286,10 @@
                     <div class="footer-col">
                         <h3>Acesso Rápido</h3>
                         <ul>
+                            {% if not user.is_authenticated %}
                             <li><a href="{% url 'core:login' %}">Login</a></li>
                             <li><a href="{% url 'core:registo' %}">Criar Conta</a></li>
+                            {% endif %}
                             {% if user.is_authenticated %}
                                 <li><a href="{% url 'core:perfil' %}">O Meu Perfil</a></li>
                             {% endif %}
