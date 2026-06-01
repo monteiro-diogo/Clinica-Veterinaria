@@ -3,8 +3,8 @@
 Esta pasta contém a definição estrutural da base de dados da Clínica Veterinária. 
 
 - **`onda/`**: Modelos ER e Físico, assim como o .json para abrir no https://onda.dei.uc.pt/v4/.
-- `vet_clinic.sql`: Script original com a criação das tabelas e constraints de validação (i.e., chaves estrangeiras e limites para NIF e Telefone) em PostgreSQL.
-- `seed.sql`: Script com dados de teste de modo a preencher as tabelas.
+- **`sql/`**`vet_clinic.sql`: Script original com a criação das tabelas e constraints de validação (i.e., chaves estrangeiras e limites para NIF e Telefone) em PostgreSQL.
+- **`sql/`**`seed.sql`: Script com dados de teste de modo a preencher as tabelas.
 
 O sistema utiliza um modelo relacional robusto, preparado não só para a gestão de pacientes, mas também para o registo clínico e de faturação.
 
